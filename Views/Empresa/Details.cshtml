@@ -1,0 +1,154 @@
+﻿@model NominasSAT.Models.Empresa
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Empresa</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RFC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RFC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Regimen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Regimen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RegistroPatronal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RegistroPatronal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClaseRiesgoTrabajo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClaseRiesgoTrabajo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LugarExpedicion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LugarExpedicion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Calle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Calle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumeroExterior)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroExterior)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumeroInterior)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroInterior)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Colonia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Colonia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ciudad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ciudad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Municipio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Municipio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CertificadoCer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CertificadoCer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CertificadoKey)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CertificadoKey)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CertificadoContasena)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CertificadoContasena)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.EmpresaId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

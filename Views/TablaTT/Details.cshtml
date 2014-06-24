@@ -1,0 +1,74 @@
+﻿@model NominasSAT.Models.TablaTT
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TablaTT</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Periodo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Periodo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TablaTT1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TablaTT1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TablaTT2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TablaTT2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TablaTT3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TablaTT3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TablaTT4)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TablaTT4)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TablaTT5)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TablaTT5)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TablaTT6)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TablaTT6)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,496 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{759351EA-CD4F-496C-8E5D-B3153FB485A2}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NominasSAT</RootNamespace>
+    <AssemblyName>NominasSAT</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Mvc.Mailer">
+      <HintPath>..\packages\MvcMailer.4.5\lib\45\Mvc.Mailer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.1\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <Private>True</Private>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.1.0.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.1.0.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.1.0.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.2.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.0.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.2.0.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.0.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.0.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.2.0.0\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.2.0.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.2.0.0\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BancoController.cs" />
+    <Compile Include="Controllers\ConfiguracionController.cs" />
+    <Compile Include="Controllers\EmpleadoController.cs" />
+    <Compile Include="Controllers\EmpresaController.cs" />
+    <Compile Include="Controllers\EstadoController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ISRController.cs" />
+    <Compile Include="Controllers\IMSSController.cs" />
+    <Compile Include="Controllers\ISRLimitesConfiguracionController.cs" />
+    <Compile Include="Controllers\ISRLimitesController.cs" />
+    <Compile Include="Controllers\MailController.cs" />
+    <Compile Include="Controllers\NominaCFDIController.cs" />
+    <Compile Include="Controllers\Periodo1Controller.cs" />
+    <Compile Include="Controllers\PeriodoConfiguracionController.cs" />
+    <Compile Include="Controllers\RegimenController.cs" />
+    <Compile Include="Controllers\RiesgoPuestoController.cs" />
+    <Compile Include="Controllers\SalarioMinimoConfiguracionController.cs" />
+    <Compile Include="Controllers\SalarioMinimoController.cs" />
+    <Compile Include="Controllers\TablaISR1Controller.cs" />
+    <Compile Include="Controllers\TablaISR2Controller.cs" />
+    <Compile Include="Controllers\TablaISRSinEstimuloFiscalController.cs" />
+    <Compile Include="Controllers\TablaPController.cs" />
+    <Compile Include="Controllers\TablaTController.cs" />
+    <Compile Include="Controllers\TablaTTController.cs" />
+    <Compile Include="Controllers\TipoDeduccionController.cs" />
+    <Compile Include="Controllers\TipoIncapacidadController.cs" />
+    <Compile Include="Controllers\TipoPercepcionController.cs" />
+    <Compile Include="Controllers\TopesdeVecesdeSalarioXRamoController.cs" />
+    <Compile Include="Controllers\ZonaDefaultController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Log4NetManager.cs" />
+    <Compile Include="Mailers\IUserMailer.cs" />
+    <Compile Include="Mailers\UserMailer.cs" />
+    <Compile Include="Migrations\201406172157049_Initial.cs" />
+    <Compile Include="Migrations\201406172157049_Initial.Designer.cs">
+      <DependentUpon>201406172157049_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Banco.cs" />
+    <Compile Include="Models\Configuracion.cs" />
+    <Compile Include="Models\Empleado.cs" />
+    <Compile Include="Models\Empresa.cs" />
+    <Compile Include="Models\Estado.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\IMSS.cs" />
+    <Compile Include="Models\ISR.cs" />
+    <Compile Include="Models\NominaCFDI.cs" />
+    <Compile Include="Models\Regimen.cs" />
+    <Compile Include="Models\RiesgoPuesto.cs" />
+    <Compile Include="Models\TipoDeduccion.cs" />
+    <Compile Include="Models\TipoIncapacidad.cs" />
+    <Compile Include="Models\TipoPercepcion.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\datatables\img\Sorting icons.psd" />
+    <Content Include="Log4Net.config" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\datatables\DT_bootstrap.js" />
+    <Content Include="Scripts\datatables\img\back_disabled.png" />
+    <Content Include="Scripts\datatables\img\back_enabled.png" />
+    <Content Include="Scripts\datatables\img\back_enabled_hover.png" />
+    <Content Include="Scripts\datatables\img\datatable-row-openclose.png" />
+    <Content Include="Scripts\datatables\img\favicon.ico" />
+    <Content Include="Scripts\datatables\img\forward_disabled.png" />
+    <Content Include="Scripts\datatables\img\forward_enabled.png" />
+    <Content Include="Scripts\datatables\img\forward_enabled_hover.png" />
+    <Content Include="Scripts\datatables\img\sort_asc.png" />
+    <Content Include="Scripts\datatables\img\sort_asc_disabled.png" />
+    <Content Include="Scripts\datatables\img\sort_both.png" />
+    <Content Include="Scripts\datatables\img\sort_desc.png" />
+    <Content Include="Scripts\datatables\img\sort_desc_disabled.png" />
+    <Content Include="Scripts\datatables\jquery.dataTables.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\nomina.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
+    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Manage.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\TipoDeduccion\Create.cshtml" />
+    <Content Include="Views\TipoDeduccion\Delete.cshtml" />
+    <Content Include="Views\TipoDeduccion\Details.cshtml" />
+    <Content Include="Views\TipoDeduccion\Edit.cshtml" />
+    <Content Include="Views\TipoDeduccion\Index.cshtml" />
+    <Content Include="Views\TipoIncapacidad\Create.cshtml" />
+    <Content Include="Views\TipoIncapacidad\Delete.cshtml" />
+    <Content Include="Views\TipoIncapacidad\Details.cshtml" />
+    <Content Include="Views\TipoIncapacidad\Edit.cshtml" />
+    <Content Include="Views\TipoIncapacidad\Index.cshtml" />
+    <Content Include="Views\TipoPercepcion\Create.cshtml" />
+    <Content Include="Views\TipoPercepcion\Delete.cshtml" />
+    <Content Include="Views\TipoPercepcion\Details.cshtml" />
+    <Content Include="Views\TipoPercepcion\Edit.cshtml" />
+    <Content Include="Views\TipoPercepcion\Index.cshtml" />
+    <Content Include="Views\RiesgoPuesto\Create.cshtml" />
+    <Content Include="Views\RiesgoPuesto\Delete.cshtml" />
+    <Content Include="Views\RiesgoPuesto\Details.cshtml" />
+    <Content Include="Views\RiesgoPuesto\Edit.cshtml" />
+    <Content Include="Views\RiesgoPuesto\Index.cshtml" />
+    <Content Include="Views\Regimen\Create.cshtml" />
+    <Content Include="Views\Regimen\Delete.cshtml" />
+    <Content Include="Views\Regimen\Details.cshtml" />
+    <Content Include="Views\Regimen\Edit.cshtml" />
+    <Content Include="Views\Regimen\Index.cshtml" />
+    <Content Include="Views\Empresa\Create.cshtml" />
+    <Content Include="Views\Empresa\Delete.cshtml" />
+    <Content Include="Views\Empresa\Details.cshtml" />
+    <Content Include="Views\Empresa\Edit.cshtml" />
+    <Content Include="Views\Empresa\Index.cshtml" />
+    <Content Include="Views\Banco\Create.cshtml" />
+    <Content Include="Views\Banco\Delete.cshtml" />
+    <Content Include="Views\Banco\Details.cshtml" />
+    <Content Include="Views\Banco\Edit.cshtml" />
+    <Content Include="Views\Banco\Index.cshtml" />
+    <Content Include="Views\Estado\Create.cshtml" />
+    <Content Include="Views\Estado\Delete.cshtml" />
+    <Content Include="Views\Estado\Details.cshtml" />
+    <Content Include="Views\Estado\Edit.cshtml" />
+    <Content Include="Views\Estado\Index.cshtml" />
+    <Content Include="Views\NominaCFDI\Create.cshtml" />
+    <Content Include="Views\NominaCFDI\Delete.cshtml" />
+    <Content Include="Views\NominaCFDI\Details.cshtml" />
+    <Content Include="Views\NominaCFDI\Edit.cshtml" />
+    <Content Include="Views\NominaCFDI\Index.cshtml" />
+    <Content Include="Views\Configuracion\Create.cshtml" />
+    <Content Include="Views\Configuracion\Delete.cshtml" />
+    <Content Include="Views\Configuracion\Details.cshtml" />
+    <Content Include="Views\Configuracion\Edit.cshtml" />
+    <Content Include="Views\Configuracion\Index.cshtml" />
+    <Content Include="Views\SalarioMinimoConfiguracion\Create.cshtml" />
+    <Content Include="Views\SalarioMinimoConfiguracion\Delete.cshtml" />
+    <Content Include="Views\SalarioMinimoConfiguracion\Details.cshtml" />
+    <Content Include="Views\SalarioMinimoConfiguracion\Edit.cshtml" />
+    <Content Include="Views\SalarioMinimoConfiguracion\Index.cshtml" />
+    <Content Include="Views\TablaISR1\Create.cshtml" />
+    <Content Include="Views\TablaISR1\Delete.cshtml" />
+    <Content Include="Views\TablaISR1\Details.cshtml" />
+    <Content Include="Views\TablaISR1\Edit.cshtml" />
+    <Content Include="Views\TablaISR1\Index.cshtml" />
+    <Content Include="Views\TablaISR2\Create.cshtml" />
+    <Content Include="Views\TablaISR2\Delete.cshtml" />
+    <Content Include="Views\TablaISR2\Details.cshtml" />
+    <Content Include="Views\TablaISR2\Edit.cshtml" />
+    <Content Include="Views\TablaISR2\Index.cshtml" />
+    <Content Include="Views\TablaISRSinEstimuloFiscal\Create.cshtml" />
+    <Content Include="Views\TablaISRSinEstimuloFiscal\Delete.cshtml" />
+    <Content Include="Views\TablaISRSinEstimuloFiscal\Details.cshtml" />
+    <Content Include="Views\TablaISRSinEstimuloFiscal\Edit.cshtml" />
+    <Content Include="Views\TablaISRSinEstimuloFiscal\Index.cshtml" />
+    <Content Include="Views\ISRLimitesConfiguracion\Create.cshtml" />
+    <Content Include="Views\ISRLimitesConfiguracion\Delete.cshtml" />
+    <Content Include="Views\ISRLimitesConfiguracion\Details.cshtml" />
+    <Content Include="Views\ISRLimitesConfiguracion\Edit.cshtml" />
+    <Content Include="Views\ISRLimitesConfiguracion\Index.cshtml" />
+    <Content Include="Views\ISRLimites\Create.cshtml" />
+    <Content Include="Views\ISRLimites\Delete.cshtml" />
+    <Content Include="Views\ISRLimites\Details.cshtml" />
+    <Content Include="Views\ISRLimites\Edit.cshtml" />
+    <Content Include="Views\ISRLimites\Index.cshtml" />
+    <Content Include="Views\IMSS\Index.cshtml" />
+    <Content Include="Views\SalarioMinimo\Create.cshtml" />
+    <Content Include="Views\SalarioMinimo\Delete.cshtml" />
+    <Content Include="Views\SalarioMinimo\Details.cshtml" />
+    <Content Include="Views\SalarioMinimo\Edit.cshtml" />
+    <Content Include="Views\SalarioMinimo\Index.cshtml" />
+    <Content Include="Views\PeriodoConfiguracion\Create.cshtml" />
+    <Content Include="Views\PeriodoConfiguracion\Delete.cshtml" />
+    <Content Include="Views\PeriodoConfiguracion\Details.cshtml" />
+    <Content Include="Views\PeriodoConfiguracion\Edit.cshtml" />
+    <Content Include="Views\PeriodoConfiguracion\Index.cshtml" />
+    <Content Include="Views\ZonaDefault\Create.cshtml" />
+    <Content Include="Views\ZonaDefault\Delete.cshtml" />
+    <Content Include="Views\ZonaDefault\Details.cshtml" />
+    <Content Include="Views\ZonaDefault\Edit.cshtml" />
+    <Content Include="Views\ZonaDefault\Index.cshtml" />
+    <Content Include="Views\TablaP\Create.cshtml" />
+    <Content Include="Views\TablaP\Delete.cshtml" />
+    <Content Include="Views\TablaP\Details.cshtml" />
+    <Content Include="Views\TablaP\Edit.cshtml" />
+    <Content Include="Views\TablaP\Index.cshtml" />
+    <Content Include="Views\TablaT\Create.cshtml" />
+    <Content Include="Views\TablaT\Delete.cshtml" />
+    <Content Include="Views\TablaT\Details.cshtml" />
+    <Content Include="Views\TablaT\Edit.cshtml" />
+    <Content Include="Views\TablaT\Index.cshtml" />
+    <Content Include="Views\TablaTT\Create.cshtml" />
+    <Content Include="Views\TablaTT\Delete.cshtml" />
+    <Content Include="Views\TablaTT\Details.cshtml" />
+    <Content Include="Views\TablaTT\Edit.cshtml" />
+    <Content Include="Views\TablaTT\Index.cshtml" />
+    <Content Include="Views\TopesdeVecesdeSalarioXRamo\Create.cshtml" />
+    <Content Include="Views\TopesdeVecesdeSalarioXRamo\Delete.cshtml" />
+    <Content Include="Views\TopesdeVecesdeSalarioXRamo\Details.cshtml" />
+    <Content Include="Views\TopesdeVecesdeSalarioXRamo\Edit.cshtml" />
+    <Content Include="Views\TopesdeVecesdeSalarioXRamo\Index.cshtml" />
+    <Content Include="Views\Periodo1\Create.cshtml" />
+    <Content Include="Views\Periodo1\Delete.cshtml" />
+    <Content Include="Views\Periodo1\Details.cshtml" />
+    <Content Include="Views\Periodo1\Edit.cshtml" />
+    <Content Include="Views\Periodo1\Index.cshtml" />
+    <Content Include="Views\ISR\Index.cshtml" />
+    <Content Include="Views\Empleado\Create.cshtml" />
+    <Content Include="Views\Empleado\Delete.cshtml" />
+    <Content Include="Views\Empleado\Details.cshtml" />
+    <Content Include="Views\Empleado\Edit.cshtml" />
+    <Content Include="Views\Empleado\Index.cshtml" />
+    <Content Include="Views\Empleado\DetailsAjax.cshtml" />
+    <Content Include="Views\UserMailer\_Layout.cshtml" />
+    <Content Include="Views\UserMailer\Welcome.cshtml" />
+    <Content Include="Views\UserMailer\GoodBye.cshtml" />
+    <Content Include="Views\Mail\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CertificateValidation\CertificateValidation.csproj">
+      <Project>{f602836d-e227-4c2c-89cc-809090a86217}</Project>
+      <Name>CertificateValidation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{5e9aa0e5-f2e3-4f0b-ae9b-fd0ab5dfad74}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MasFacturacion.StampingConnector\MasFacturacion.StampingConnector.csproj">
+      <Project>{856933b6-b7d9-4807-a582-641b21dbd2ea}</Project>
+      <Name>MasFacturacion.StampingConnector</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201406172157049_Initial.resx">
+      <DependentUpon>201406172157049_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>61043</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:64529/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

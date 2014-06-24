@@ -1,0 +1,93 @@
+﻿@model IEnumerable<NominasSAT.Models.TopesdeVecesdeSalarioXRamo>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Periodo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tope1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tope2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tope3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tope4)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tope5)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tope6)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tope7)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tope8)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tope9)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tope10)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Periodo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tope1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tope2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tope3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tope4)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tope5)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tope6)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tope7)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tope8)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tope9)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tope10)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

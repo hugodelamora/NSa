@@ -1,0 +1,189 @@
+﻿@model IEnumerable<NominasSAT.Models.Empleado>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RFC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CURP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumSeguroSocial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SalarioDiario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SBC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaInicioLaboral)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumdeEmpleado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Regimen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Departamento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CLABE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Banco)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Puesto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoContrato)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoJornada)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PeriodicidadPago)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RiesgoPuesto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RFCPatron)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pais)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Localidad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Municipio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Calle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumeroExterior)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumeroInterior)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Colonia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CP)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RFC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CURP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumSeguroSocial)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SalarioDiario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SBC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaInicioLaboral)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumdeEmpleado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Regimen)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Departamento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CLABE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Banco)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Puesto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoContrato)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoJornada)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PeriodicidadPago)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RiesgoPuesto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RFCPatron)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pais)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Localidad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Municipio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Calle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumeroExterior)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumeroInterior)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Colonia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CP)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Codigo }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Codigo }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Codigo })
+        </td>
+    </tr>
+}
+
+</table>

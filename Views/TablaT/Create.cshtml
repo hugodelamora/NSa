@@ -1,0 +1,89 @@
+﻿@model NominasSAT.Models.TablaT
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>TablaT</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Periodo, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Periodo)
+                @Html.ValidationMessageFor(model => model.Periodo)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TablaT1, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TablaT1)
+                @Html.ValidationMessageFor(model => model.TablaT1)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TablaT2, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TablaT2)
+                @Html.ValidationMessageFor(model => model.TablaT2)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TablaT3, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TablaT3)
+                @Html.ValidationMessageFor(model => model.TablaT3)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TablaT4, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TablaT4)
+                @Html.ValidationMessageFor(model => model.TablaT4)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TablaT5, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TablaT5)
+                @Html.ValidationMessageFor(model => model.TablaT5)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TablaT6, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TablaT6)
+                @Html.ValidationMessageFor(model => model.TablaT6)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

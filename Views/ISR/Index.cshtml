@@ -1,0 +1,622 @@
+﻿@model IEnumerable<NominasSAT.Models.TablaP>
+@{
+    ViewBag.Title = "ISR";
+}
+
+
+<h2>Cuotas y datos para el calculo del ISR</h2>
+
+
+
+<div class="form-horizontal">
+
+    <h3>ISR</h3>
+    <table class="table">
+        <tr>
+            <th class="col-md-1">
+                Limite inferior
+            </th>
+            <th class="col-md-1">
+                Cuota fija
+            </th>
+            <th class="col-md-1">
+                % Tarifa
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+                
+            </th>
+            <th class="col-md-1">
+                
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+        </tr>
+        @foreach (var itemTablaISR1 in ViewBag.TablaISR1)
+        {
+            <tr>
+            <td class="col-md-1">@itemTablaISR1.LimiteInferior</td>
+            <td class="col-md-1">@itemTablaISR1.CuotaFija</td>
+            <td class="col-md-1">@itemTablaISR1.Porcentajetarifa</td>
+            <td class="col-md-1"></td>
+            <td class="col-md-1"></td>
+            <td class="col-md-1"></td>
+            <td class="col-md-1"></td>
+            <td class="col-md-1"></td>
+            <td class="col-md-1"></td>
+            <td class="col-md-1"></td>
+            <td class="col-md-1"></td>
+            <td class="col-md-1"></td>
+        </tr>
+        }
+    </table>
+    <br />
+    <h3>Subsidio ISR</h3>
+    <table class="table">
+        <tr>
+            <th class="col-md-1">
+                Limite inferior
+            </th>
+            <th class="col-md-1">
+                Subsidio
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+        </tr>
+        @foreach (var itemTablaISR2 in ViewBag.TablaISR2)
+        {
+            <tr>
+                <td class="col-md-1">@itemTablaISR2.LimiteInferior</td>
+                <td class="col-md-1">@itemTablaISR2.Subsidio</td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+            </tr>
+        }
+    </table>
+    <br />
+    <h3>Tabla sin estimulo fiscal</h3>
+    <table class="table">
+        <tr>
+            <th class="col-md-1">
+                Limite inferior
+            </th>
+            <th class="col-md-1">
+                Subsidio
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+        </tr>
+        @foreach (var itemTablaISRSinEstimuloFiscals in ViewBag.TablaISRSinEstimuloFiscals)
+        {
+            <tr>
+                <td class="col-md-1">@itemTablaISRSinEstimuloFiscals.LimiteInferior</td>
+                <td class="col-md-1">@itemTablaISRSinEstimuloFiscals.Subsidio</td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+            </tr>
+        }
+    </table>
+    <br />
+
+    @*Aqui comienzan las tablas calculadas*@
+
+    <h3>Tarifa Mensual</h3>
+    <table class="table">
+        <tr>
+            <th class="col-md-1">
+               Quinto limite inferior
+            </th>
+            <th class="col-md-1">
+              
+            </th>
+            <th class="col-md-1">
+                <input type="text" value="@ViewBag.Limites.QuintoLimiteInferior" />
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+        </tr>
+        <tr>
+            <th class="col-md-1">
+                TARM <span class="glyphicon glyphicon-question-sign" title="Tarifa mensual de ISR"></span>
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+                @ViewBag.TARM
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+        </tr>
+        <tr>
+            <th class="col-md-1">
+                Limite inferior
+            </th>
+            <th class="col-md-1">
+                Cuota fija
+            </th>
+            <th class="col-md-1">
+                % Tarifa
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+        </tr>
+        @foreach (var itemtablaCalculadaISR1 in ViewBag.tablaCalculadaISR1)
+        {
+            <tr>
+                <td class="col-md-1">@itemtablaCalculadaISR1.LimiteInferior</td>
+                <td class="col-md-1">@itemtablaCalculadaISR1.CuotaFija</td>
+                <td class="col-md-1">@itemtablaCalculadaISR1.Porcentajetarifa</td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+            </tr>
+        }
+    </table>
+    <br />
+    <table class="table">
+        <tr>
+            <th class="col-md-1">
+                Dias de la tarifa
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+                <input type="text" value="@ViewBag.Limites.DiasTarifa" />
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+        </tr>
+        <tr>
+            <th class="col-md-1">
+                TARP
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+                @ViewBag.TARMP
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+        </tr>
+        <tr>
+            <th class="col-md-1">
+                Limite inferior
+            </th>
+            <th class="col-md-1">
+                Cuota fija
+            </th>
+            <th class="col-md-1">
+                % Tarifa
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+        </tr>
+        @foreach (var itemtablaCalculadaISR2 in ViewBag.tablaCalculadaISR2)
+        {
+            <tr>
+                <td class="col-md-1">@itemtablaCalculadaISR2.LimiteInferior</td>
+                <td class="col-md-1">@itemtablaCalculadaISR2.CuotaFija</td>
+                <td class="col-md-1">@itemtablaCalculadaISR2.Porcentajetarifa</td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+            </tr>
+        }
+    </table>
+    <br />
+    <h3>Tarifa con estimulo del 26/Dic/2013</h3>
+    <table class="table">
+        <tr>
+            <th class="col-md-1">
+                Cantidad quinto nivel
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+                <input type="text" value="@ViewBag.Limites.CantidadQuintoNivel" />
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+        </tr>
+        <tr>
+            <th class="col-md-1">
+                TARMC
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+                @ViewBag.TARMC
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+        </tr>
+        <tr>
+            <th class="col-md-1">
+                Limite inferior
+            </th>
+            <th class="col-md-1">
+                Subsidio
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+        </tr>
+        @foreach (var itemTablaCalculadaEstimuloISR1 in ViewBag.tablaCalculadaEstimuloISR1)
+        {
+            <tr>
+                <td class="col-md-1">@itemTablaCalculadaEstimuloISR1.LimiteInferior</td>
+                <td class="col-md-1">@itemTablaCalculadaEstimuloISR1.Subsidio</td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+            </tr>
+        }
+    </table>
+    <br />
+    <h3>Tarifa Vigente Primer Semestre 2014</h3>
+    <table class="table">
+        <tr>
+            <th class="col-md-1">
+                Dias tabla
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+                @ViewBag.DiasTabla
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+        </tr>
+        <tr>
+            <th class="col-md-1">
+                TARSP
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+                @ViewBag.TARSP
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+        </tr>
+        <tr>
+            <th class="col-md-1">
+                Limite inferior
+            </th>
+            <th class="col-md-1">
+                Subsidio
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+            </th>
+        </tr>
+        @foreach (var itemTablaCalculadaEstimuloISR2 in ViewBag.tablaCalculadaEstimuloISR2)
+        {
+            <tr>
+                <td class="col-md-1">@itemTablaCalculadaEstimuloISR2.LimiteInferior</td>
+                <td class="col-md-1">@itemTablaCalculadaEstimuloISR2.Subsidio</td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+            </tr>
+        }
+    </table>
+</div>

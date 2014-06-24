@@ -1,0 +1,438 @@
+﻿@model NominasSAT.Models.NominaCFDI
+
+@{
+    ViewBag.Title = "Create";
+}
+<script>
+    var TARMPItems = Array();
+
+
+
+    @foreach (var itemTARMP in ViewBag.TARMP)
+     {
+         <text>
+
+
+    var TARMP = new Object();
+    TARMP.LimiteInferior = '@itemTARMP.LimiteInferior';
+    TARMP.CuotaFija = '@itemTARMP.CuotaFija';
+    TARMP.Porcentajetarifa = '@itemTARMP.Porcentajetarifa';
+    TARMPItems.push(TARMP);
+
+    </text>
+
+    }
+
+
+    var TARSPItems = Array();
+
+
+
+    @foreach (var itemTARSP in ViewBag.TARSP)
+    {
+        <text>
+
+
+    var TARSP = new Object();
+    TARSP.LimiteInferior = '@itemTARSP.LimiteInferior';
+    TARSP.Subsidio = '@itemTARSP.Subsidio';
+    TARSPItems.push(TARSP);
+
+    </text>
+
+    }
+
+    var TablaTsItems = Array();
+
+
+
+    @foreach (var itemTablaTs in ViewBag.TablaTs)
+    {
+        <text>
+
+
+    var TablaTs = new Object();
+    TablaTs.TablaT1 = '@itemTablaTs.TablaT1';
+    TablaTs.TablaT2 = '@itemTablaTs.TablaT2';
+    TablaTs.TablaT3 = '@itemTablaTs.TablaT3';
+    TablaTs.TablaT4 = '@itemTablaTs.TablaT4';
+    TablaTs.TablaT5 = '@itemTablaTs.TablaT5';
+    TablaTs.TablaT6 = '@itemTablaTs.TablaT6';
+
+    TablaTsItems.push(TablaTs);
+
+    </text>
+
+    }
+
+    var TOPESCItems = Array();
+
+
+
+    var TOPESC = new Object();
+    TOPESC.Tope1 = '@ViewBag.TOPESC.Tope1';
+    TOPESC.Tope2 = '@ViewBag.TOPESC.Tope2';
+    TOPESC.Tope3 = '@ViewBag.TOPESC.Tope3';
+    TOPESC.Tope4 = '@ViewBag.TOPESC.Tope4';
+    TOPESC.Tope5 = '@ViewBag.TOPESC.Tope5';
+    TOPESC.Tope6 = '@ViewBag.TOPESC.Tope6';
+    TOPESC.Tope7 = '@ViewBag.TOPESC.Tope7';
+    TOPESC.Tope8 = '@ViewBag.TOPESC.Tope8';
+    TOPESC.Tope9 = '@ViewBag.TOPESC.Tope9';
+    TOPESC.Tope10 = '@ViewBag.TOPESC.Tope10';
+
+    TOPESCItems.push(TOPESC);
+
+     
+
+</script>
+<h2>Create</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>NominaCFDI</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="row">
+           
+                <div class="col-md-2">
+                    <small>Empleado </small><br />
+            
+                    @Html.DropDownList("EmpleadoRFC", (IEnumerable<SelectListItem>)ViewBag.empleados, "Selecciona el Empleado")
+
+                    @Html.ActionLink("Crear", "Create", "Empleado", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-default btn-xs", @style = "color:black" })
+                </div>
+            
+            
+               
+           
+
+            <div class="col-md-2">
+                <small> @Html.LabelFor(model => model.SalarioDiario) </small>
+                @Html.EditorFor(model => model.SalarioDiario)
+                @Html.ValidationMessageFor(model => model.SalarioDiario)
+            </div>
+            <div class="col-md-2">
+                <small>
+                    @Html.LabelFor(model => model.SBC) <span class="glyphicon glyphicon-question-sign" title="Se refiere al Salario Base de Cotización con  el  cual el empleado esta registrado ante el IMSS"></span>
+                </small>
+                @Html.EditorFor(model => model.SBC)
+                @Html.ValidationMessageFor(model => model.SBC)
+
+            </div>
+
+
+
+                        </div>
+        <div class="row">
+          
+            <div class="col-md-2">
+                <small>
+                    @Html.LabelFor(model => model.DiasPagar)</small>
+                    @Html.EditorFor(model => model.DiasPagar)
+                    @Html.ValidationMessageFor(model => model.DiasPagar)
+
+</div>
+            <div class="col-md-2">
+                <small>
+                    @Html.LabelFor(model => model.Incidencias)</small>
+                    @Html.EditorFor(model => model.Incidencias)
+                    @Html.ValidationMessageFor(model => model.Incidencias)
+
+</div>
+            <div class="col-md-2">
+                <small>@Html.LabelFor(model => model.Ausentismo)</small>
+               @Html.EditorFor(model => model.Ausentismo)
+@Html.ValidationMessageFor(model => model.Ausentismo)
+            </div>
+            <div class="col-md-2">
+
+                <small>
+                    @Html.LabelFor(model => model.HorasExtrasDobles)
+                </small>
+                @Html.EditorFor(model => model.HorasExtrasDobles)
+                @Html.ValidationMessageFor(model => model.HorasExtrasDobles)
+
+
+
+            </div>
+            <div class="col-md-2">
+                <small>
+                    @Html.LabelFor(model => model.HorasExtrasTriples)
+                </small>
+                @Html.EditorFor(model => model.HorasExtrasTriples)
+                @Html.ValidationMessageFor(model => model.HorasExtrasTriples)
+
+            </div>
+            <div class="col-md-2">
+                <small> @Html.LabelFor(model => model.DiasTrabajados)</small>
+                    @Html.EditorFor(model => model.DiasTrabajados)
+                        @Html.ValidationMessageFor(model => model.DiasTrabajados)
+
+</div>
+        </div>
+   
+
+        <hr />Percepciones
+        <div class="row">
+            <div class="col-md-2">
+                <small>
+                    @Html.LabelFor(model => model.PSueldosSalariosRayasJornales)
+                </small>
+                @Html.EditorFor(model => model.PSueldosSalariosRayasJornales)
+                @Html.ValidationMessageFor(model => model.PSueldosSalariosRayasJornales)
+
+
+            </div>
+           
+
+            <div class="col-md-2">
+                <small>
+                    @Html.LabelFor(model => model.PHorasExtras)
+                </small>
+                @Html.EditorFor(model => model.PHorasExtras)
+                @Html.ValidationMessageFor(model => model.PHorasExtras)
+            </div>
+
+            <div class="col-md-2">
+                <small>
+                    @Html.LabelFor(model => model.PComisiones)
+                </small><br />
+                @Html.EditorFor(model => model.PComisiones)
+                @Html.ValidationMessageFor(model => model.PComisiones)
+
+
+            </div>
+            <div class="col-md-2">
+                <small>
+                    @Html.LabelFor(model => model.POtros)
+                </small><br />
+                @Html.EditorFor(model => model.POtros)
+                @Html.ValidationMessageFor(model => model.POtros)
+
+
+            </div>
+            <div class="col-md-2">
+                <small>
+                    @Html.LabelFor(model => model.PPrimavacacional)
+                </small><br />
+                @Html.EditorFor(model => model.PPrimavacacional)
+                @Html.ValidationMessageFor(model => model.PPrimavacacional)
+
+            </div>
+        </div>
+        <hr />
+        Deducciones
+        <div class="row">
+            <div class="col-md-2">
+                <small>
+                    @Html.LabelFor(model => model.DISR)</small><br />
+                @Html.EditorFor(model => model.DISR)
+                @Html.ValidationMessageFor(model => model.DISR)
+</div>
+            <div class="col-md-2">
+                <small>
+                    @Html.LabelFor(model => model.DSubsidio)</small><br />
+                @Html.EditorFor(model => model.DSubsidio)
+                @Html.ValidationMessageFor(model => model.DSubsidio)
+</div>
+          
+            <div class="col-md-2">
+                <small>
+                    @Html.LabelFor(model => model.SeguridadSocial)</small><br />
+                @Html.EditorFor(model => model.SeguridadSocial)
+                @Html.ValidationMessageFor(model => model.SeguridadSocial)
+</div>
+            <div class="col-md-2">
+                <small>
+                    @Html.LabelFor(model => model.Infonavit)</small><br />
+                @Html.EditorFor(model => model.Infonavit)
+                @Html.ValidationMessageFor(model => model.Infonavit)
+</div>
+
+            <div class="col-md-2">
+                <small>
+                    @Html.LabelFor(model => model.OtrasDeducciones)
+                </small><br />
+                @Html.EditorFor(model => model.OtrasDeducciones)
+                @Html.ValidationMessageFor(model => model.OtrasDeducciones)
+            </div>
+
+            <div class="col-md-2">
+
+            </div>
+
+           
+        </div>
+        <div class="row" style="display:none">
+            <div class="col-md-2">
+                <small>
+                    @Html.LabelFor(model => model.D1)
+                </small><br />
+                @Html.EditorFor(model => model.D1)
+                @Html.ValidationMessageFor(model => model.D1)
+            </div>
+
+            <div class="col-md-2">
+                <small>
+                    @Html.LabelFor(model => model.D2)
+                </small><br />
+                @Html.EditorFor(model => model.D2)
+                @Html.ValidationMessageFor(model => model.D2)
+            </div>
+            <div class="col-md-2">
+                <small>
+                    @Html.LabelFor(model => model.D3)</small><br />
+                @Html.EditorFor(model => model.D3)
+                @Html.ValidationMessageFor(model => model.D3)
+</div>
+            <div class="col-md-2">
+                <small>
+                    @Html.LabelFor(model => model.D4)</small><br />
+                @Html.EditorFor(model => model.D4)
+                @Html.ValidationMessageFor(model => model.D4)
+</div>
+            <div class="col-md-2">
+                <small>
+                    @Html.LabelFor(model => model.D5)</small><br />
+                @Html.EditorFor(model => model.D5)
+                @Html.ValidationMessageFor(model => model.D5)
+</div>
+            <div class="col-md-2">
+                <small>
+                    @Html.LabelFor(model => model.D6)</small><br />
+                @Html.EditorFor(model => model.D6)
+                @Html.ValidationMessageFor(model => model.D6)
+</div>
+           <div class="col-md-2">
+                        <small>
+                            @Html.LabelFor(model => model.PHorasExtrasExcento)</small>
+                        @Html.EditorFor(model => model.PHorasExtrasExcento)
+                        @Html.ValidationMessageFor(model => model.PHorasExtrasExcento)
+
+
+        </div>
+                    <div class="col-md-2">
+                        <small>
+                            @Html.LabelFor(model => model.PHorasExtrasGravado)</small><br />
+                        @Html.EditorFor(model => model.PHorasExtrasGravado)
+                        @Html.ValidationMessageFor(model => model.PHorasExtrasGravado)
+
+
+        </div>
+            <div class="col-md-2">
+                        <small>
+                            @Html.LabelFor(model => model.PSueldoExcento)</small>
+                            @Html.EditorFor(model => model.PSueldoExcento)
+                            @Html.ValidationMessageFor(model => model.PSueldoExcento)
+
+
+        </div>
+                    <div class="col-md-2">
+                        <small>
+                            @Html.LabelFor(model => model.PSueldoGravado)</small>
+                            @Html.EditorFor(model => model.PSueldoGravado)
+                            @Html.ValidationMessageFor(model => model.PSueldoGravado)
+
+
+        </div>
+                    <div class="col-md-2">
+                        <small>
+                            @Html.LabelFor(model => model.PHorasExtrasDobles)</small>
+                            @Html.EditorFor(model => model.PHorasExtrasDobles)
+                            @Html.ValidationMessageFor(model => model.PHorasExtrasDobles)
+        </div>
+                    <div class="col-md-2">
+                        <small>
+                            @Html.LabelFor(model => model.PHorasExtrasTriples)</small>
+                            @Html.EditorFor(model => model.PHorasExtrasTriples)
+                            @Html.ValidationMessageFor(model => model.PHorasExtrasTriples)
+        </div>
+
+            <div class="col-md-2">
+                <small> @Html.LabelFor(model => model.RFC) </small><br />
+                @Html.EditorFor(model => model.RFC)
+                @Html.ValidationMessageFor(model => model.RFC)
+            </div>
+
+            <div class="col-md-2">
+                <small> @Html.LabelFor(model => model.CURP) </small><br />
+                @Html.EditorFor(model => model.CURP)
+                @Html.ValidationMessageFor(model => model.CURP)
+            </div>
+        <div class="col-md-2">
+            <small> @Html.LabelFor(model => model.NumSeguroSocial) </small><br />
+            @Html.EditorFor(model => model.NumSeguroSocial)
+            @Html.ValidationMessageFor(model => model.NumSeguroSocial)
+        </div>
+        <div class="col-md-2">
+            <small> @Html.LabelFor(model => model.FechaInicioLaboral) </small><br />
+            @Html.EditorFor(model => model.FechaInicioLaboral)
+            @Html.ValidationMessageFor(model => model.FechaInicioLaboral)
+        </div>
+            </div>
+        <hr />
+        Incapacidades
+        <div class="row">
+            <div class="col-md-2">
+                <small>Empleado </small><br />
+
+                @Html.DropDownList("incapacidades", (IEnumerable<SelectListItem>)ViewBag.Incapacidades, "Selecciona la incapacidad")
+
+
+            </div>
+
+            <div class="col-md-2">
+                <small>
+                    @Html.LabelFor(model => model.DescuentoIncapacidad)
+                </small><br />
+                @Html.EditorFor(model => model.DescuentoIncapacidad)
+                @Html.ValidationMessageFor(model => model.DescuentoIncapacidad)
+            </div>
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-2">
+                <small>
+                    @Html.LabelFor(model => model.PTotalPercepciones)
+                </small><br />
+                @Html.EditorFor(model => model.PTotalPercepciones)
+                @Html.ValidationMessageFor(model => model.PTotalPercepciones)
+            </div>
+            <div class="col-md-2">
+                <small>
+                    @Html.LabelFor(model => model.TotalDeduccion)
+                </small><br />
+                @Html.EditorFor(model => model.TotalDeduccion)
+                @Html.ValidationMessageFor(model => model.TotalDeduccion)
+            </div>
+            <div class="col-md-2">
+                <small>
+                    @Html.LabelFor(model => model.SalarioNeto)
+                </small><br />
+                @Html.EditorFor(model => model.SalarioNeto)
+                @Html.ValidationMessageFor(model => model.SalarioNeto)
+            </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-10 col-md-2">
+                    @*variables ocultas*@
+                    <input type="hidden" id="ZonaSalarioMin" value="@ViewBag.ZonaSalarioMin" />
+                    <input type="submit" value="Crear Nomina" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

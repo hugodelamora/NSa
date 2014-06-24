@@ -1,0 +1,70 @@
+﻿@model NominasSAT.Models.Empleado
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Empleado</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RFC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RFC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CURP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CURP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumSeguroSocial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumSeguroSocial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SalarioDiario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SalarioDiario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SBC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SBC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaInicioLaboral)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaInicioLaboral)
+        </dd>
+
+    </dl>
+</div>

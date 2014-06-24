@@ -1,0 +1,26 @@
+﻿@model NominasSAT.Models.Periodo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Periodo</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Predeterminado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Predeterminado)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PeriodoID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

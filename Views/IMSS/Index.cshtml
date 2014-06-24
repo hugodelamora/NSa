@@ -1,0 +1,364 @@
+﻿@model IEnumerable<NominasSAT.Models.TablaP>
+@{
+    ViewBag.Title = "IMSS";
+}
+
+
+<h2>Cuotas y datos para el calculo del IMSS</h2>
+@*ViewBag.TablaP = db.TablaPs.ToList();
+ViewBag.TablaT = db.TablaTs.ToList();
+ViewBag.TablaTT = db.TablaTTs.ToList();
+ViewBag.SalarioMinimo = SalarioMinimoConfiguracions;
+ViewBag.TopesdeVecesdeSalarioXRamoes = TopesdeVecesdeSalarioXRamoes;
+ViewBag.TopesdeVecesdeSalarioXSalarioMinimo = TopesdeVecesdeSalarioXSalarioMinimo;
+ViewBag.Zona = Zona;*@
+
+<div class="form-horizontal">
+    <h3>Tabla P</h3>
+    <table class="table">
+        <tr>
+            <th class="col-md-1">Periodo
+            </th>
+            <th class="col-md-1">Gastos med
+            </th>
+            <th class="col-md-1">Fija
+            </th>
+            <th class="col-md-1">Mas 3SM
+            </th>
+            <th class="col-md-1">Dinero
+            </th>
+            <th class="col-md-1">Invalidez Vid
+            </th>
+            <th class="col-md-1">Cesantia y V
+            </th>
+            <th class="col-md-1">Guarderia
+            </th>
+            <th class="col-md-1">Retiro
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">Infonavit
+            </th>
+            <th class="col-md-1">
+            </th>
+            </tr>
+@foreach (var itemTablaP in ViewBag.TablaP)
+                {
+        <tr>
+            <td class="col-md-1">@itemTablaP.Periodo
+            </td>
+            <td class="col-md-1">@itemTablaP.TablaP1</td>
+            <td class="col-md-1">@itemTablaP.TablaP2</td>
+            <td class="col-md-1">@itemTablaP.TablaP3</td>
+            <td class="col-md-1">@itemTablaP.TablaP4</td>
+            <td class="col-md-1">@itemTablaP.TablaP5</td>
+            <td class="col-md-1">@itemTablaP.TablaP6</td>
+            <td class="col-md-1">@itemTablaP.TablaP7</td>
+            <td class="col-md-1">@itemTablaP.TablaP8</td>
+            <td class="col-md-1">@itemTablaP.TablaP9</td>
+            <td class="col-md-1">@itemTablaP.TablaP10</td>
+            <td class="col-md-1"></td>
+        </tr>
+}
+        </table>
+
+    <br />
+    <h3>Tabla T</h3>
+    <table class="table">
+        <tr>
+            <th class="col-md-1">
+                Periodo
+            </th>
+            <th class="col-md-1">
+                Gastos med
+            </th>
+            <th class="col-md-1">
+                Fija
+            </th>
+            <th class="col-md-1">
+                Mas 3SM
+            </th>
+            <th class="col-md-1">
+                Dinero
+            </th>
+            <th class="col-md-1">
+                Invalidez Vid
+            </th>
+            <th class="col-md-1">
+                Cesantia y V
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+            </th>
+        </tr>
+        @foreach (var itemTablaT in ViewBag.TablaT)
+        {
+            <tr>
+                <td class="col-md-1">
+                    @itemTablaT.Periodo
+            </td>
+            <td class="col-md-1">@itemTablaT.TablaT1</td>
+            <td class="col-md-1">@itemTablaT.TablaT2</td>
+            <td class="col-md-1">@itemTablaT.TablaT3</td>
+            <td class="col-md-1">@itemTablaT.TablaT4</td>
+            <td class="col-md-1">@itemTablaT.TablaT5</td>
+            <td class="col-md-1">@itemTablaT.TablaT6</td>
+            <td class="col-md-1"></td>
+            <td class="col-md-1"></td>
+            <td class="col-md-1"></td>
+            <td class="col-md-1"></td>
+            <td class="col-md-1"></td>
+        </tr>
+        }
+    </table>
+
+
+    <br />
+    <h3>Tabla TT</h3>
+    <table class="table">
+        <tr>
+            <th class="col-md-1">
+                Periodo
+            </th>
+            <th class="col-md-1">
+                1
+            </th>
+            <th class="col-md-1">
+                2
+            </th>
+            <th class="col-md-1">
+                3
+            </th>
+            <th class="col-md-1">
+                4
+            </th>
+            <th class="col-md-1">
+                5
+            </th>
+            <th class="col-md-1">
+                6
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+            </th>
+        </tr>
+        @foreach (var itemTablaTT in ViewBag.TablaTT)
+        {
+            <tr>
+                <td class="col-md-1">
+                    @itemTablaTT.Periodo
+                </td>
+                <td class="col-md-1">@itemTablaTT.TablaTT1</td>
+                <td class="col-md-1">@itemTablaTT.TablaTT2</td>
+                <td class="col-md-1">@itemTablaTT.TablaTT3</td>
+                <td class="col-md-1">@itemTablaTT.TablaTT4</td>
+                <td class="col-md-1">@itemTablaTT.TablaTT5</td>
+                <td class="col-md-1">@itemTablaTT.TablaTT6</td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+            </tr>
+        }
+    </table>
+
+    <br />
+    <h3>Salarios minimos</h3>
+    <table class="table">
+        <tr>
+            <th class="col-md-1">
+                Zona
+            </th>
+            <th class="col-md-1">
+                Salario
+            </th>
+            <th class="col-md-1">
+                
+            </th>
+            <th class="col-md-1">
+                
+            </th>
+            <th class="col-md-1">
+                
+            </th>
+            <th class="col-md-1">
+                
+            </th>
+            <th class="col-md-1">
+             
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1">
+            </th>
+        </tr>
+        @foreach (var itemSalarioMinimo in ViewBag.SalarioMinimo)
+        {
+            <tr>
+                <td class="col-md-1">@itemSalarioMinimo.Zona</td>
+                <td class="col-md-1">@itemSalarioMinimo.Monto</td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1"></td>
+            </tr>
+        }
+    </table>
+    <br />
+    <h3>Tabla de topes de veces de salario minimo para cada ramo</h3>
+    <table class="table">
+        <tr>
+            <th class="col-md-1">
+                Periodo
+            </th>
+            <th class="col-md-1">
+                1
+            </th>
+            <th class="col-md-1">
+                2
+            </th>
+            <th class="col-md-1">
+                3
+            </th>
+            <th class="col-md-1">
+                4
+            </th>
+            <th class="col-md-1">
+                5
+            </th>
+            <th class="col-md-1">
+                6
+            </th>
+            <th class="col-md-1">
+                7
+            </th>
+            <th class="col-md-1">
+                8
+            </th>
+            <th class="col-md-1">
+                9
+            </th>
+            <th class="col-md-1">
+                10
+            </th>
+            <th class="col-md-1">
+            </th>
+        </tr>
+     
+           <tr>
+                <td class="col-md-1">
+                    @ViewBag.TopesdeVecesdeSalarioXRamoes.Periodo
+                </td>
+                <td class="col-md-1">@ViewBag.TopesdeVecesdeSalarioXRamoes.Tope1</td>
+                <td class="col-md-1">@ViewBag.TopesdeVecesdeSalarioXRamoes.Tope2</td>
+                <td class="col-md-1">@ViewBag.TopesdeVecesdeSalarioXRamoes.Tope3</td>
+                <td class="col-md-1">@ViewBag.TopesdeVecesdeSalarioXRamoes.Tope4</td>
+                <td class="col-md-1">@ViewBag.TopesdeVecesdeSalarioXRamoes.Tope5</td>
+                <td class="col-md-1">@ViewBag.TopesdeVecesdeSalarioXRamoes.Tope6</td>
+                <td class="col-md-1">@ViewBag.TopesdeVecesdeSalarioXRamoes.Tope7</td>
+                <td class="col-md-1">@ViewBag.TopesdeVecesdeSalarioXRamoes.Tope8</td>
+                <td class="col-md-1">@ViewBag.TopesdeVecesdeSalarioXRamoes.Tope9</td>
+                <td class="col-md-1">@ViewBag.TopesdeVecesdeSalarioXRamoes.Tope10</td>
+                <td class="col-md-1"></td>
+            </tr>
+     
+    </table>
+    <br />
+
+    <h3>Tabla de topes de salarios minimos por veces de salarios minimos</h3>
+    <table class="table">
+        <tr>
+            <th class="col-md-1">
+                Periodo
+            </th>
+            <th class="col-md-1">
+                1
+            </th>
+            <th class="col-md-1">
+                2
+            </th>
+            <th class="col-md-1">
+                3
+            </th>
+            <th class="col-md-1">
+                4
+            </th>
+            <th class="col-md-1">
+                5
+            </th>
+            <th class="col-md-1">
+                6
+            </th>
+            <th class="col-md-1">
+                7
+            </th>
+            <th class="col-md-1">
+                8
+            </th>
+            <th class="col-md-1">
+                9
+            </th>
+            <th class="col-md-1">
+                10
+            </th>
+            <th class="col-md-1">
+            </th>
+        </tr>
+
+        <tr>
+            <td class="col-md-1">
+                @ViewBag.TopesdeVecesdeSalarioXSalarioMinimo.Periodo
+            </td>
+            <td class="col-md-1">@ViewBag.TopesdeVecesdeSalarioXSalarioMinimo.Tope1</td>
+            <td class="col-md-1">@ViewBag.TopesdeVecesdeSalarioXSalarioMinimo.Tope2</td>
+            <td class="col-md-1">@ViewBag.TopesdeVecesdeSalarioXSalarioMinimo.Tope3</td>
+            <td class="col-md-1">@ViewBag.TopesdeVecesdeSalarioXSalarioMinimo.Tope4</td>
+            <td class="col-md-1">@ViewBag.TopesdeVecesdeSalarioXSalarioMinimo.Tope5</td>
+            <td class="col-md-1">@ViewBag.TopesdeVecesdeSalarioXSalarioMinimo.Tope6</td>
+            <td class="col-md-1">@ViewBag.TopesdeVecesdeSalarioXSalarioMinimo.Tope7</td>
+            <td class="col-md-1">@ViewBag.TopesdeVecesdeSalarioXSalarioMinimo.Tope8</td>
+            <td class="col-md-1">@ViewBag.TopesdeVecesdeSalarioXSalarioMinimo.Tope9</td>
+            <td class="col-md-1">@ViewBag.TopesdeVecesdeSalarioXSalarioMinimo.Tope10</td>
+            <td class="col-md-1"></td>
+        </tr>
+
+    </table>
+               
+
+</div>

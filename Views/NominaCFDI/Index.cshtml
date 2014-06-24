@@ -1,0 +1,207 @@
+﻿@model IEnumerable<NominasSAT.Models.NominaCFDI>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SalarioDiario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SBC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiasPagar)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Incidencias)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ausentismo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiasTrabajados)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HorasExtrasDobles)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HorasExtrasTriples)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PSueldosSalariosRayasJornales)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PSueldoExcento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PSueldoGravado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PHorasExtrasDobles)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PHorasExtrasTriples)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PHorasExtras)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PHorasExtrasExcento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PHorasExtrasGravado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PComisiones)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.POtros)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PPrimavacacional)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PTotalPercepciones)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DISR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DSubsidio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.D1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.D2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.D3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.D4)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.D5)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.D6)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SeguridadSocial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Infonavit)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SalarioDiario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SBC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiasPagar)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Incidencias)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ausentismo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiasTrabajados)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HorasExtrasDobles)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HorasExtrasTriples)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PSueldosSalariosRayasJornales)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PSueldoExcento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PSueldoGravado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PHorasExtrasDobles)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PHorasExtrasTriples)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PHorasExtras)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PHorasExtrasExcento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PHorasExtrasGravado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PComisiones)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.POtros)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PPrimavacacional)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PTotalPercepciones)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DISR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DSubsidio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.D1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.D2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.D3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.D4)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.D5)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.D6)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SeguridadSocial)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Infonavit)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.NominaID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.NominaID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.NominaID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,194 @@
+﻿
+@model NominasSAT.Models.Empleado
+
+
+
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Cátalogo de empleados</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    
+    <div id="formaCrearEmpleado">
+        @Html.ValidationSummary(true)
+        
+
+
+        <div class="table-responsive">
+
+            <table class="table table-striped table-bordered table-hover table-highlight table-checkable" id="xmlContentGrid"
+                   data-provide="datatable"
+                   data-display-rows="10"
+                   data-info="true"
+                   data-search="true"
+                   data-length-change="true"
+                   data-paginate="false">
+                <thead>
+                    <tr>
+                        <th class="checkbox-column">
+                            <input type="checkbox" onclick="selectAll(this.checked)">
+                        </th>
+                        <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.Nombre, new { @class = "control-label col-md-2" })</th>
+                        <th data-filterable="true" class="hidden-xs hidden-sm" data-sortable="true">@Html.LabelFor(model => model.RFC, new { @class = "control-label col-md-2" })</th>
+                        <th data-filterable="true" class="hidden-xs hidden-sm" data-sortable="true">@Html.LabelFor(model => model.CURP, new { @class = "control-label col-md-2" })</th>
+                        <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.NumSeguroSocial, new { @class = "control-label col-md-2" })</th>
+                        <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.SalarioDiario, new { @class = "control-label col-md-2" })</th>
+                        <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.SBC, new { @class = "control-label col-md-2" })</th>
+                        <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.TipoContrato, new { @class = "control-label col-md-2" })</th>
+                        <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.FechaInicioLaboral, new { @class = "control-label col-md-2" })</th>
+                        <th data-filterable="true" data-sortable="true">Sueldo neto</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="width:30px">
+                          
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.Nombre)
+                            @Html.ValidationMessageFor(model => model.Nombre)
+
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.RFC)
+                            @Html.ValidationMessageFor(model => model.RFC)
+
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.CURP)
+                            @Html.ValidationMessageFor(model => model.CURP)
+                        </td>
+                        <td>
+                           @Html.EditorFor(model => model.NumSeguroSocial)
+@Html.ValidationMessageFor(model => model.NumSeguroSocial)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.SalarioDiario)
+@Html.ValidationMessageFor(model => model.SalarioDiario)
+
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.SBC)
+                            @Html.ValidationMessageFor(model => model.SBC)
+
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.TipoContrato)
+@Html.ValidationMessageFor(model => model.TipoContrato)
+
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.FechaInicioLaboral)
+                            @Html.ValidationMessageFor(model => model.FechaInicioLaboral)
+
+                        </td>
+                        <td>
+                           
+                            
+
+                        </td>
+                        <td style="width:70px">
+                            <div class='btn-group btn-group-xs'>
+                                <input type="submit" value="Agregar" class="btn btn-info" />
+                            </div>
+                        </td>
+
+
+                    </tr>
+                  @foreach (var item in ViewBag.empleados)
+                  {
+                        <tr>
+                            <td>
+                                <input type="checkbox"name="checkXML" >
+                            </td>
+                            <td>
+                                @item.Nombre
+                              
+                            </td>
+                            <td>
+                                @item.RFC
+                            
+                            </td>
+                            <td>
+                                @item.CURP
+                            </td>
+                            <td>
+                                @item.NumSeguroSocial
+                            </td>
+                            <td>
+                                @item.SalarioDiario
+                          
+                            </td>
+                            <td>
+                                @item.SBC
+                           
+                            </td>
+                            <td>
+                                @item.TipoContrato
+                             
+                            </td>
+                            <td>
+                                @item.FechaInicioLaboral
+                           
+                            </td>
+                            <td>
+                                @item.SalarioDiario
+                               
+                            </td>
+                            <td style="width:90px">
+                                <div class='btn-group btn-group-xs'>
+                                    
+                                    <a href='Details/@item.Codigo' class='btn btn-info'>Ver</a>
+                                    <button type='button' class='btn btn-info dropdown-toggle' data-toggle='dropdown' tabindex='-1'>
+                                        <span class='caret'></span>
+                                    </button>
+                                    <ul class='dropdown-menu'>
+                                        <li><a href='#'>Generar Nomina</a></li>
+                                        <li><a href='#'>Ver Pagos</a></li>
+                                        <li><a href='Edit/@item.Codigo'>Modificar</a></li>
+                                        <li><a href='Delete/@item.Codigo'>Eliminar</a></li>
+
+                                    </ul>
+                                </div>
+                            </td>
+
+
+                        </tr>
+                   
+                  }
+                </tbody>
+                @*<tfoot>
+                    <tr>
+                        <th class="checkbox-column">
+                        </th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th id="trasladosTotal"></th>
+                        <th id="retenidosTotal"></th>
+                        <th id="subtotalTotal"></th>
+                        <th id="totalTotal"></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </tfoot>*@
+            </table>
+        </div> <!-- /.table-responsive -->
+    </div>
+    
+   
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

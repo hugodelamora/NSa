@@ -1,0 +1,129 @@
+﻿@model IEnumerable<NominasSAT.Models.Empresa>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RFC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Regimen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegistroPatronal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClaseRiesgoTrabajo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LugarExpedicion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Calle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumeroExterior)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumeroInterior)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Colonia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ciudad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Municipio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CertificadoCer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CertificadoKey)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CertificadoContasena)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RFC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Regimen)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegistroPatronal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClaseRiesgoTrabajo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LugarExpedicion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Calle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumeroExterior)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumeroInterior)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Colonia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ciudad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Municipio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CertificadoCer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CertificadoKey)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CertificadoContasena)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.EmpresaId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.EmpresaId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.EmpresaId })
+        </td>
+    </tr>
+}
+
+</table>

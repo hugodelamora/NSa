@@ -1,0 +1,206 @@
+﻿@model NominasSAT.Models.Empleado
+
+@{
+    ViewBag.Title = "Modificar empleado";
+}
+
+<h2>Modificar empleado</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="container">
+
+    <div class="row">
+        <div class="col-xs-5">
+            
+
+            <img width="100px" height="100px" src='#' />
+
+
+        </div>
+        <div class="col-xs-7 text-right">
+            <h1>@Html.DisplayFor(model => model.Nombre)</h1>
+            <h1><small><span id="uuid">@Html.DisplayFor(model => model.Puesto)</span></small></h1>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4><span id="EmisorName">Datos laborales</span></h4>
+                </div>
+                <div class="panel-body" id="EmisorDomicilio">
+
+                    <table class="table table-striped table-bordered table-condensed">
+
+                        <tbody>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.NumdeEmpleado)</td>
+                                <td>@Html.EditorFor(model => model.NumdeEmpleado) <br />@Html.ValidationMessageFor(model => model.NumdeEmpleado)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.SalarioDiario)</td>
+                                <td>@Html.EditorFor(model => model.SalarioDiario)<br /><br /> @Html.ValidationMessageFor(model => model.SalarioDiario)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.SBC)</td>
+                                <td>@Html.EditorFor(model => model.SBC) @Html.ValidationMessageFor(model => model.SBC)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.SalarioDiario)</td>
+                                <td>@Html.EditorFor(model => model.SalarioDiario)<br />@Html.ValidationMessageFor(model => model.SalarioDiario)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.FechaInicioLaboral)</td>
+                                <td>@Html.EditorFor(model => model.FechaInicioLaboral) <br /><small>@Html.ValidationMessageFor(model => model.FechaInicioLaboral)</small></td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.Regimen)</td>
+                                <td>@Html.EditorFor(model => model.Regimen) <br />@Html.ValidationMessageFor(model => model.Regimen)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.Departamento)</td>
+                                <td>@Html.EditorFor(model => model.Departamento) <br />@Html.ValidationMessageFor(model => model.Departamento)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.Puesto)</td>
+                                <td>@Html.EditorFor(model => model.Puesto)<br /> @Html.ValidationMessageFor(model => model.Puesto)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.TipoContrato)</td>
+                                <td>@Html.EditorFor(model => model.TipoContrato)<br /> @Html.ValidationMessageFor(model => model.TipoContrato)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.TipoJornada)</td>
+                                <td>@Html.EditorFor(model => model.TipoJornada)<br /> @Html.ValidationMessageFor(model => model.TipoJornada)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.PeriodicidadPago)</td>
+                                <td>@Html.EditorFor(model => model.PeriodicidadPago)<br /> @Html.ValidationMessageFor(model => model.PeriodicidadPago)</td>
+                            </tr>
+                            <tr>
+    <td>@Html.LabelFor(model => model.RiesgoPuesto)</td>
+    <td>@Html.EditorFor(model => model.RiesgoPuesto)<br /> @Html.ValidationMessageFor(model => model.RiesgoPuesto)</td>
+</tr>
+                            <tr>
+    <td>@Html.LabelFor(model => model.RFCPatron)</td>
+    <td>@Html.EditorFor(model => model.RFCPatron)<br /> @Html.ValidationMessageFor(model => model.RFCPatron)</td>
+</tr>
+                        </tbody>
+                    </table>
+
+                  
+
+                      
+
+                    </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-xs-offset-0 text-left">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4><span id="ReceptorName">Datos personales</span></h4>
+                </div>
+                <div class="panel-body" id="ReceptorDomicilio">
+
+                    <table class="table table-striped table-bordered table-condensed">
+
+                        <tbody>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.Nombre)</td>
+                                <td>@Html.EditorFor(model => model.Nombre)<br /><br /> @Html.ValidationMessageFor(model => model.Nombre)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.RFC)</td>
+                                <td>@Html.EditorFor(model => model.RFC) @Html.ValidationMessageFor(model => model.RFC)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.CURP)</td>
+                                <td>@Html.EditorFor(model => model.CURP) <br />@Html.ValidationMessageFor(model => model.CURP)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.NumSeguroSocial)</td>
+                                <td>@Html.EditorFor(model => model.NumSeguroSocial)<br /><br /> @Html.ValidationMessageFor(model => model.NumSeguroSocial)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.CLABE)</td>
+                                <td>@Html.EditorFor(model => model.CLABE) @Html.ValidationMessageFor(model => model.CLABE)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.Banco)</td>
+                                <td>@Html.EditorFor(model => model.Banco)<br /><br /> @Html.ValidationMessageFor(model => model.Banco)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.Calle)</td>
+                                <td>@Html.EditorFor(model => model.Calle) @Html.ValidationMessageFor(model => model.Calle)</td>
+                            </tr>
+                        <tr>
+    <td>@Html.LabelFor(model => model.NumeroExterior)</td>
+    <td>@Html.EditorFor(model => model.NumeroExterior)<br /><br /> @Html.ValidationMessageFor(model => model.NumeroExterior)</td>
+</tr>
+                        <tr>
+    <td>@Html.LabelFor(model => model.NumeroInterior)</td>
+    <td>@Html.EditorFor(model => model.NumeroInterior) @Html.ValidationMessageFor(model => model.NumeroInterior)</td>
+</tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.Colonia)</td>
+                                <td>@Html.EditorFor(model => model.Colonia)<br /><br /> @Html.ValidationMessageFor(model => model.Colonia)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.Municipio)</td>
+                                <td>@Html.EditorFor(model => model.Municipio) @Html.ValidationMessageFor(model => model.Municipio)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.Estado)</td>
+                                <td>@Html.EditorFor(model => model.Estado)<br /> @Html.ValidationMessageFor(model => model.Estado)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.Pais)</td>
+                                <td>@Html.EditorFor(model => model.Pais)<br /> @Html.ValidationMessageFor(model => model.Pais)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.Localidad)</td>
+                                <td>@Html.EditorFor(model => model.Localidad) <br />@Html.ValidationMessageFor(model => model.Localidad)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.CP)</td>
+                                <td>@Html.EditorFor(model => model.CP)<br /> @Html.ValidationMessageFor(model => model.CP)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.Email)</td>
+                                <td>@Html.EditorFor(model => model.Email) @Html.ValidationMessageFor(model => model.Email)</td>
+                            </tr>
+
+                            </tbody></table>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div> <!-- / end client details section -->
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Codigo)
+
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" value="Modificar" class="btn btn-default" />
+            </div>
+        </div>
+        </div>
+    <br />
+}
+
+<div>
+    @Html.ActionLink("Regresar", "Create")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

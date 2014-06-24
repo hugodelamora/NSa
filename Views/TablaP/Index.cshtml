@@ -1,0 +1,93 @@
+﻿@model IEnumerable<NominasSAT.Models.TablaP>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Periodo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TablaP1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TablaP2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TablaP3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TablaP4)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TablaP5)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TablaP6)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TablaP7)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TablaP8)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TablaP9)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TablaP10)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Periodo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TablaP1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TablaP2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TablaP3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TablaP4)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TablaP5)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TablaP6)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TablaP7)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TablaP8)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TablaP9)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TablaP10)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

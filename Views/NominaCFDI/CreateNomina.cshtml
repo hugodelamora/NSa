@@ -1,0 +1,301 @@
+﻿@model NominasSAT.Models.NominaCFDI
+
+@{
+    ViewBag.Title = "Create";
+}
+<script>
+    var TARMPItems = Array();
+
+
+
+    @foreach (var itemTARMP in ViewBag.TARMP)
+     {
+         <text>
+
+
+    var TARMP = new Object();
+    TARMP.LimiteInferior = '@itemTARMP.LimiteInferior';
+    TARMP.CuotaFija = '@itemTARMP.CuotaFija';
+    TARMP.Porcentajetarifa = '@itemTARMP.Porcentajetarifa';
+    TARMPItems.push(TARMP);
+
+    </text>
+
+    }
+
+
+    var TARSPItems = Array();
+
+
+
+    @foreach (var itemTARSP in ViewBag.TARSP)
+    {
+        <text>
+
+
+    var TARSP = new Object();
+    TARSP.LimiteInferior = '@itemTARSP.LimiteInferior';
+    TARSP.Subsidio = '@itemTARSP.Subsidio';
+    TARSPItems.push(TARSP);
+
+    </text>
+
+    }
+
+    var TablaTsItems = Array();
+
+
+
+    @foreach (var itemTablaTs in ViewBag.TablaTs)
+    {
+        <text>
+
+
+    var TablaTs = new Object();
+    TablaTs.TablaT1 = '@itemTablaTs.TablaT1';
+    TablaTs.TablaT2 = '@itemTablaTs.TablaT2';
+    TablaTs.TablaT3 = '@itemTablaTs.TablaT3';
+    TablaTs.TablaT4 = '@itemTablaTs.TablaT4';
+    TablaTs.TablaT5 = '@itemTablaTs.TablaT5';
+    TablaTs.TablaT6 = '@itemTablaTs.TablaT6';
+
+    TablaTsItems.push(TablaTs);
+
+    </text>
+
+    }
+
+    var TOPESCItems = Array();
+
+
+
+    var TOPESC = new Object();
+    TOPESC.Tope1 = '@ViewBag.TOPESC.Tope1';
+    TOPESC.Tope2 = '@ViewBag.TOPESC.Tope2';
+    TOPESC.Tope3 = '@ViewBag.TOPESC.Tope3';
+    TOPESC.Tope4 = '@ViewBag.TOPESC.Tope4';
+    TOPESC.Tope5 = '@ViewBag.TOPESC.Tope5';
+    TOPESC.Tope6 = '@ViewBag.TOPESC.Tope6';
+    TOPESC.Tope7 = '@ViewBag.TOPESC.Tope7';
+    TOPESC.Tope8 = '@ViewBag.TOPESC.Tope8';
+    TOPESC.Tope9 = '@ViewBag.TOPESC.Tope9';
+    TOPESC.Tope10 = '@ViewBag.TOPESC.Tope10';
+
+    TOPESCItems.push(TOPESC);
+
+    //Calcula toda las nominas en automatico
+    var empleadosItems = Array();
+     @foreach (var itemEmpleado in ViewBag.empleados)
+    {
+        <text>
+    var empleados = new Object();
+    empleados.codigo = '@itemEmpleado.Codigo';
+    empleadosItems.push(empleados);
+        </text>
+
+    }
+
+</script>
+<h2>Create</h2>
+
+<div style="width:100%;">
+
+    <table>
+
+        <tbody>
+            <tr>
+                <td>Número de periodo</td>
+                <td><input type="text" /></td>
+                <td>Tipo de periodo</td>
+                <td><input type="text" /></td>
+                <td colspan="3" style="vertical-align:middle"><input type="button" value="Timbrar la nómina" class="btn btn-default" onclick="timbraNomina()" /></td>
+                <td colspan="3" style="vertical-align:middle"><input type="button" value="Enviar recibos" class="btn btn-default" /></td>
+            </tr>
+            <tr>
+                <td>Fecha inicio de periodo</td>
+                <td><input type="text" id="fechaInicioPeriodo" /></td>
+                <td>Fecha de pago</td>
+                <td><input type="text" id="fechaDePago" /></td>
+            </tr>
+            <tr>
+                <td>Fecha fin de periodo</td>
+                <td><input type="text" id="fechaFinPeriodo" /></td>
+                <td>Forma de pago</td>
+                <td><input type="text" /></td>
+            </tr>
+           
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+<div class="table-responsive" style="width:100%; overflow-x:scroll">
+
+    <table id="empleados" class="table table-striped table-bordered table-hover table-highlight table-checkable" style="width: 3000px"
+           data-provide="datatable"
+           data-display-rows="10"
+           data-info="true"
+           data-search="true"
+           data-length-change="true"
+           data-paginate="false">
+        <thead>
+            <tr>
+                @*<th class="checkbox-column">
+                    <input type="checkbox" onclick="selectAll(this.checked)">
+                </th>*@
+                <th data-filterable="true" data-sortable="true">Num. Empleado</th>
+                <th data-filterable="true" class="hidden-xs hidden-sm" data-sortable="true">Nombre</th>
+                <th data-filterable="true" class="hidden-xs hidden-sm" data-sortable="true">@Html.LabelFor(model => model.SalarioDiario)</th>
+                <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.SBC) <span class="glyphicon glyphicon-question-sign" title="Se refiere al Salario Base de Cotización con  el  cual el empleado esta registrado ante el IMSS"></span></th>
+
+                <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.DiasPagar)</th>
+                <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.Incidencias)</th>
+                <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.Ausentismo)</th>
+                <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.DiasTrabajados)</th>
+                <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.HorasExtrasDobles)</th>
+                <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.HorasExtrasTriples)</th>
+                <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.PSueldosSalariosRayasJornales)</th>
+                <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.PHorasExtras)</th>
+                <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.PComisiones)</th>
+                <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.POtros)</th>
+                <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.PPrimavacacional)</th>
+                <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.DISR)</th>
+                <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.DSubsidio)</th>
+                <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.SeguridadSocial)</th>
+                <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.Infonavit)</th>
+                <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.OtrasDeducciones)</th>
+                <th data-filterable="true" data-sortable="true">Incapacidades</th>
+                <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.DescuentoIncapacidad)</th>
+                <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.PTotalPercepciones)</th>
+                <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.TotalDeduccion)</th>
+                <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.SalarioNeto)</th>
+
+                <th data-filterable="true" data-sortable="true" hidden="hidden">@Html.LabelFor(model => model.D1)</th>
+                <th data-filterable="true" data-sortable="true" hidden="hidden">@Html.LabelFor(model => model.D2)</th>
+                <th data-filterable="true" data-sortable="true" hidden="hidden">@Html.LabelFor(model => model.D3)</th>
+                <th data-filterable="true" data-sortable="true" hidden="hidden">@Html.LabelFor(model => model.D4)</th>
+                <th data-filterable="true" data-sortable="true" hidden="hidden">@Html.LabelFor(model => model.D5)</th>
+                <th data-filterable="true" data-sortable="true" hidden="hidden">@Html.LabelFor(model => model.D6)</th>
+                <th data-filterable="true" data-sortable="true" hidden="hidden">@Html.LabelFor(model => model.PHorasExtrasExcento)</th>
+                <th data-filterable="true" data-sortable="true" hidden="hidden">@Html.LabelFor(model => model.PHorasExtrasGravado)</th>
+                <th data-filterable="true" data-sortable="true" hidden="hidden">@Html.LabelFor(model => model.PSueldoExcento)</th>
+                <th data-filterable="true" data-sortable="true" hidden="hidden">@Html.LabelFor(model => model.PSueldoGravado)</th>
+                <th data-filterable="true" data-sortable="true" hidden="hidden">@Html.LabelFor(model => model.PHorasExtrasDobles)</th>
+                <th data-filterable="true" data-sortable="true" hidden="hidden">@Html.LabelFor(model => model.PHorasExtrasTriples)</th>
+                <th data-filterable="true" data-sortable="true" hidden="hidden">@Html.LabelFor(model => model.RFC)</th>
+                <th data-filterable="true" data-sortable="true" hidden="hidden">@Html.LabelFor(model => model.CURP)</th>
+                <th data-filterable="true" data-sortable="true" hidden="hidden">@Html.LabelFor(model => model.NumSeguroSocial)</th>
+                <th data-filterable="true" data-sortable="true" hidden="hidden">@Html.LabelFor(model => model.FechaInicioLaboral)</th>
+                <th data-filterable="true" data-sortable="true" hidden="hidden">@Html.LabelFor(model => model.User)</th>
+                <th data-filterable="true" data-sortable="true" hidden="hidden">@Html.LabelFor(model => model.Empresa)</th>
+
+</tr>
+        </thead>
+        <tbody>
+            
+            @foreach (var item in ViewBag.empleados)
+{
+    <tr id="empleado_@item.Codigo">
+        @*<td>
+                <input type="checkbox" name="checkXML">
+            </td>*@
+        <td id="valNumdeEmpleado">
+            @item.NumdeEmpleado
+
+        </td>
+        <td id="valNombre">
+            @item.Nombre
+
+        </td>
+        <td id="valSalarioDiario">
+            @item.SalarioDiario
+        </td>
+        <td id="valSBC">
+            @item.SBC
+        </td>
+        <td>
+            <input type="text" id="valDiasPagar" value="15" />
+        </td>
+        <td>
+            <input type="text" id="valIncidencias" value="0" />
+        </td>
+        <td>
+            <input type="text" id="valAusentismo" value="0" />
+        </td>
+        <td id="valDiasTrabajados"></td>
+        <td>
+            <input type="text" id="valHorasExtrasDobles" value="0" />
+        </td>
+        <td>
+            <input type="text" id="valHorasExtrasTriples" value="0" />
+        </td>
+        <td id="valPSueldosSalariosRayasJornales"></td>
+        <td>
+            <input type="text" id="valPHorasExtras" value="0" />
+        </td>
+        <td>
+            <input type="text" id="valPComisiones" value="0" />
+        </td>
+        <td>
+            <input type="text" id="valPOtros" value="0" />
+        </td>
+        <td>
+            <input type="text" id="valPPrimavacacional" value="0" />
+        </td>
+        <td id="valDISR"></td>
+        <td id="valDSubsidio"></td>
+        <td id="valSeguridadSocial"></td>
+        <td id="valInfonavit"></td>
+        <td id="valOtrasDeducciones"></td>
+        <td>
+            @Html.DropDownList("incapacidades", (IEnumerable<SelectListItem>)ViewBag.Incapacidades, "Selecciona la incapacidad")
+        </td>
+        <td>
+            <input type="text" id="valDescuentoIncapacidad" value="0" />
+        </td>
+        <td id="valPTotalPercepciones"></td>
+        <td id="valTotalDeduccion"></td>
+        <td id="valSalarioNeto"></td>
+
+        <td hidden="hidden" id="valD1"></td>
+        <td hidden="hidden" id="valD2"></td>
+        <td hidden="hidden" id="valD3"></td>
+        <td hidden="hidden" id="valD4"></td>
+        <td hidden="hidden" id="valD5"></td>
+        <td hidden="hidden" id="valD6"></td>
+        <td hidden="hidden" id="valPHorasExtrasExcento"></td>
+        <td hidden="hidden" id="valPHorasExtrasGravado"></td>
+        <td hidden="hidden" id="valPSueldoExcento"></td>
+        <td hidden="hidden" id="valPSueldoGravado"></td>
+        <td hidden="hidden" id="valPHorasExtrasDobles"></td>
+        <td hidden="hidden" id="valPHorasExtrasTriples"></td>
+        <td hidden="hidden" id="valRFC"></td>
+        <td hidden="hidden" id="valCURP"></td>
+        <td hidden="hidden" id="valNumSeguroSocial"></td>
+        <td hidden="hidden" id="valFechaInicioLaboral"></td>
+
+        <td hidden="hidden" id="valUser">@item.Codigo</td>
+        <td hidden="hidden" id="valEmpresa">@item.Empresa</td>
+
+
+    </tr>
+
+}
+        </tbody>
+    </table>
+</div> <!-- /.table-responsive -->
+<br />
+
+ <input type="hidden" id="ZonaSalarioMin" value="@ViewBag.ZonaSalarioMin" />
+
+
+<div>
+    @Html.ActionLink("Crear empleado", "Create", "Empleado", routeValues: null, htmlAttributes: new { id = "registerLink"})
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
