@@ -1,19 +1,24 @@
-<html>
+<!DOCTYPE html>
+<html lang="es">
     <head>
-        <style type="text/css">
-            div { font-family:Verdana, Arial, Sans-Serif; font-size:10px; }
-            #mail-message { padding:10px; }
-            #mail-footer { padding:10px; }
-        </style>
+		<meta charset="utf-8" />
+		<title>Correo</title>
+		<link rel="stylesheet" href="E:\SOURCESAFE\Nominas\NominasSAT\Content/normalize.css" />
+		<link rel="stylesheet" href="E:\SOURCESAFE\Nominas\NominasSAT\Content\mail.css" />
     </head>
     <body>
-    <div id="mail-message">
-        @RenderBody()
-    </div>
-    <div id="mail-footer">
-        Best Regards,
-
-        <a href="http://www.mywebsite.com">www.mywebsite.com</a>
-    </div>
+        <header>
+            <div class="logo"><img src="E:\SOURCESAFE\Nominas\NominasSAT\imagenes\logo.png" alt="Nominas RIF"></div>
+            <div class="titulo"><h1>CONTPAQI&reg; NOMINAS RIF</h1></div>
+        </header>
+        <nav></nav>
+        <section class="conts">
+            @RenderBody()
+        </section>
+		<footer>
+			<h3>
+				   Atentamente Servicios electr&oacute;nicos CONTPAQI&reg;     
+			</h3>
+		</footer>
     </body>
 </html>

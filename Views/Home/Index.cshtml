@@ -9,21 +9,29 @@
 </div>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
         <h2>Administra tus empleados</h2>
         <p>
             
         </p>
 
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
         <h2>Crea tus nominias</h2>
         <p></p>
        
 
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
         <h2>Configura los impuestos</h2>
         <p></p>
+    </div>
+
+    <div class="col-md-3">
+        <p><input type="button" value="Bienvenida" onclick="location.href='@Url.Action("Welcome", "Mail")    '" /></p>
+        <p><input type="button" value="Recupera contraseña" onclick="location.href='@Url.Action("RecoveryPassword", "Mail")    '" /></p>
+        <p><input type="button" value="Envía Nómina" onclick="location.href='@Url.Action("SendPayroll", "Mail")    '" /></p>        
+        
+        
     </div>
 </div>

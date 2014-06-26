@@ -1,0 +1,50 @@
+body {
+  background: #e8e8e8;
+  color: #444;
+  font-family: Arial;
+  font-size: 16px;
+}
+header .logo {
+  background: #444;
+  color: rgba(255,255,255,0.5);
+  top: 0;
+  width: 100%;
+}
+header .titulo {
+  font-size: 1.1em;
+  margin: 0;
+}
+article .descripcion {
+  font-size: 1.2em;
+  margin: 0;
+  padding: 0 0 0.5em 0;
+}
+article .valores {
+  font-weight: bold;
+  display: block;
+  position: absolute;
+  margin-left: 30px;
+}
+article .resultados {
+  font-style: italic;
+  margin-left: 140px;
+}
+footer {
+  background: #444;
+  color: rgba(255,255,255,0.5);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 1em 0;
+}
+footer h3 {
+  font-size: 14px;
+  text-align: center;
+}
+footer h3:before,
+footer h3:after {
+  content: " - ";
+}
+footer h3 strong {
+  display: block;
+}

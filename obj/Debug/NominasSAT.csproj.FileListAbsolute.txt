@@ -85,7 +85,6 @@ c:\users\eduardo estrada\documents\visual studio 2013\Projects\NominasSAT\Nomina
 c:\users\eduardo estrada\documents\visual studio 2013\Projects\NominasSAT\NominasSAT\obj\Debug\NominasSAT.Migrations.Initial5.resources
 c:\users\eduardo estrada\documents\visual studio 2013\Projects\NominasSAT\NominasSAT\obj\Debug\NominasSAT.Migrations.Initial6.resources
 c:\users\eduardo estrada\documents\visual studio 2013\Projects\NominasSAT\NominasSAT\obj\Debug\NominasSAT.Migrations.Initial7.resources
-E:\SOURCESAFE\Nominas\NominasSAT\obj\Debug\NominasSAT.csprojResolveAssemblyReference.cache
 E:\SOURCESAFE\Nominas\NominasSAT\bin\NominasSAT.dll
 E:\SOURCESAFE\Nominas\NominasSAT\bin\NominasSAT.pdb
 E:\SOURCESAFE\Nominas\NominasSAT\bin\Antlr3.Runtime.dll
@@ -93,6 +92,7 @@ E:\SOURCESAFE\Nominas\NominasSAT\bin\CertificateValidation.dll
 E:\SOURCESAFE\Nominas\NominasSAT\bin\Common.dll
 E:\SOURCESAFE\Nominas\NominasSAT\bin\EntityFramework.dll
 E:\SOURCESAFE\Nominas\NominasSAT\bin\EntityFramework.SqlServer.dll
+E:\SOURCESAFE\Nominas\NominasSAT\bin\log4net.dll
 E:\SOURCESAFE\Nominas\NominasSAT\bin\MasFacturacion.StampingConnector.dll
 E:\SOURCESAFE\Nominas\NominasSAT\bin\Microsoft.AspNet.Identity.Core.dll
 E:\SOURCESAFE\Nominas\NominasSAT\bin\Microsoft.AspNet.Identity.EntityFramework.dll
@@ -107,6 +107,7 @@ E:\SOURCESAFE\Nominas\NominasSAT\bin\Microsoft.Owin.Security.MicrosoftAccount.dl
 E:\SOURCESAFE\Nominas\NominasSAT\bin\Microsoft.Owin.Security.OAuth.dll
 E:\SOURCESAFE\Nominas\NominasSAT\bin\Microsoft.Owin.Security.Twitter.dll
 E:\SOURCESAFE\Nominas\NominasSAT\bin\Microsoft.Web.Infrastructure.dll
+E:\SOURCESAFE\Nominas\NominasSAT\bin\Mvc.Mailer.dll
 E:\SOURCESAFE\Nominas\NominasSAT\bin\Newtonsoft.Json.dll
 E:\SOURCESAFE\Nominas\NominasSAT\bin\Owin.dll
 E:\SOURCESAFE\Nominas\NominasSAT\bin\System.Web.Helpers.dll
@@ -123,6 +124,7 @@ E:\SOURCESAFE\Nominas\NominasSAT\bin\CertificateValidation.pdb
 E:\SOURCESAFE\Nominas\NominasSAT\bin\Common.pdb
 E:\SOURCESAFE\Nominas\NominasSAT\bin\MasFacturacion.StampingConnector.pdb
 E:\SOURCESAFE\Nominas\NominasSAT\bin\EntityFramework.xml
+E:\SOURCESAFE\Nominas\NominasSAT\bin\log4net.xml
 E:\SOURCESAFE\Nominas\NominasSAT\bin\System.Web.Helpers.xml
 E:\SOURCESAFE\Nominas\NominasSAT\bin\System.Web.Mvc.xml
 E:\SOURCESAFE\Nominas\NominasSAT\bin\System.Web.Optimization.xml
@@ -164,10 +166,8 @@ E:\SOURCESAFE\Nominas\NominasSAT\bin\es\Microsoft.Owin.Security.Facebook.resourc
 E:\SOURCESAFE\Nominas\NominasSAT\bin\es\Microsoft.Owin.Security.Google.resources.dll
 E:\SOURCESAFE\Nominas\NominasSAT\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
 E:\SOURCESAFE\Nominas\NominasSAT\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
-E:\SOURCESAFE\Nominas\NominasSAT\obj\Debug\NominasSAT.dll
-E:\SOURCESAFE\Nominas\NominasSAT\obj\Debug\NominasSAT.pdb
+E:\SOURCESAFE\Nominas\NominasSAT\obj\Debug\NominasSAT.csprojResolveAssemblyReference.cache
 E:\SOURCESAFE\Nominas\NominasSAT\obj\Debug\NominasSAT.Migrations.Initial.resources
 E:\SOURCESAFE\Nominas\NominasSAT\obj\Debug\NominasSAT.csproj.GenerateResource.Cache
-E:\SOURCESAFE\Nominas\NominasSAT\bin\log4net.dll
-E:\SOURCESAFE\Nominas\NominasSAT\bin\log4net.xml
-E:\SOURCESAFE\Nominas\NominasSAT\bin\Mvc.Mailer.dll
+E:\SOURCESAFE\Nominas\NominasSAT\obj\Debug\NominasSAT.dll
+E:\SOURCESAFE\Nominas\NominasSAT\obj\Debug\NominasSAT.pdb
