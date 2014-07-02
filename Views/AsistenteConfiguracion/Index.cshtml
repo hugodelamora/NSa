@@ -1,0 +1,128 @@
+﻿@model IEnumerable<NominasSAT.Models.AsistenteConfiguracion>
+
+@{
+    ViewBag.Title = "Asistente de Configuración";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Scripts.Render("~/Scripts/VinceGWizard/jquery.bootstrap.wizard.min.js")
+@Styles.Render("~/Scripts/VinceGWizard/prettify.css")
+@Scripts.Render("~/Scripts/VinceGWizard/prettify.js")
+
+<!-- Right side column. Contains the navbar and content of the page -->
+<aside class="right-side">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>Asistente de configuración
+                        <small>Utilice el asistente para configurar su sistema de manera fácil y rápida.</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-home"></i>Inicio</a></li>
+            <li class="active">Asistente de configuración</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content" style="text-align: justify">
+        <section id="wizardsection">
+
+            <div id="wizard" class="tabbable tabs-left">
+                <ul>
+                    <li><a href="#tabsleft-tab1" data-toggle="tab">Inicio</a></li>
+                    <li><a href="#tabsleft-tab2" data-toggle="tab">Datos de la empresa</a></li>
+                    <li><a href="#tabsleft-tab3" data-toggle="tab">Configuración</a></li>
+                    <li><a href="#tabsleft-tab4" data-toggle="tab">Establecer contraseña</a></li>
+                    <li><a href="#tabsleft-tab5" data-toggle="tab">Finalizar</a></li>
+                </ul>
+                @*                
+                    <div class="progress progress-info progress-striped">
+                        <div class="bar"></div>
+                    </div>
+                *@
+                <br />
+                <div class="tab-content">
+                    <div class="tab-pane" id="tabsleft-tab1">
+                        <div class="box box-primary">
+                            <div class="box-header">
+                                <h5 class="box-title" style="font-size: 17px;">Bienvenido a Nominas WEB</h5>
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras accumsan leo quis vehicula vehicula. Etiam vel leo non erat posuere bibendum. Nunc condimentum convallis tellus tincidunt commodo. Praesent ullamcorper, augue ut lobortis hendrerit, quam nisi porta libero, ut porttitor ligula metus mattis metus. Vestibulum sed placerat lectus, vitae tincidunt enim. Mauris quis laoreet mauris. Nulla vitae dolor ligula. In vestibulum condimentum mi, vitae scelerisque lorem vulputate eget. Nunc facilisis enim consequat vulputate iaculis. Nunc vitae erat aliquet libero consectetur cursus eget eu arcu. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse vitae dui hendrerit, volutpat nibh non, iaculis velit. Nulla elementum, massa sit amet molestie mollis, velit augue fringilla eros, a adipiscing tellus enim ut dolor. Etiam sodales lectus id dui cursus, eget posuere erat gravida. Donec ultricies lobortis placerat.
+                                </p>
+                                <p>
+                                    Phasellus ac tempor nulla. Vivamus sed porttitor justo. Mauris feugiat ultricies purus quis consectetur. Nam id lacus at leo placerat malesuada in eu erat. Pellentesque vitae congue quam. Cras fermentum ornare ligula, ut facilisis sem hendrerit non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce a consectetur ante. Cras egestas dapibus suscipit. Nulla ac quam vehicula, luctus sem a, blandit tortor. Nunc luctus nulla non augue cursus faucibus. Sed suscipit, dui id elementum pretium, nisl libero tempus nisl, non condimentum justo urna nec nisi. Pellentesque diam magna, suscipit semper urna nec, convallis varius enim.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tabsleft-tab2">
+                        2
+                    </div>
+                    <div class="tab-pane" id="tabsleft-tab3">
+                        3					   
+                    </div>
+                    <div class="tab-pane" id="tabsleft-tab4">
+                        4					   
+                    </div>
+                    <div class="tab-pane" id="tabsleft-tab5">
+                        5					   
+                    </div>
+                </div>
+                <div>
+                    <ul class="pager wizard">
+                        <li class="previous"><a href="javascript:;" style="float: left; margin-right: 5px;">Anterior</a></li>
+                        <li class="next"><a href="javascript:;" style="float: left; margin-right: 5px;">Siguiente</a></li>
+                        <li class="next finish" style="display: none; float: left; margin-right: 5px;"><a href="javascript:;">Finalizar</a></li>
+                    </ul>
+                </div>
+            </div>
+
+
+        </section>
+    </section>
+    <!-- /.content -->
+</aside>
+<!-- /.right-side -->
+
+<script>
+    $(document).ready(function () {
+
+        $('#wizard').bootstrapWizard({
+            'tabClass': 'nav nav-pills', 'debug': false, onShow: function (tab, navigation, index) {
+                console.log('onShow');
+            }, onNext: function (tab, navigation, index) {
+                console.log('onNext');
+            }, onPrevious: function (tab, navigation, index) {
+                console.log('onPrevious');
+            }, onLast: function (tab, navigation, index) {
+                console.log('onLast');
+            }, onTabClick: function (tab, navigation, index) {
+                console.log('onTabClick');
+            }, onTabShow: function (tab, navigation, index) {
+                console.log('onTabShow');
+                var $total = navigation.find('li').length;
+                var $current = index + 1;
+                var $percent = ($current / $total) * 100;
+                $('#wizard').find('.bar').css({ width: $percent + '%' });
+
+                // If it's the last tab then hide the last button and show the finish instead
+                if ($current >= $total) {
+                    $('#wizard').find('.pager .next').hide();
+                    $('#wizard').find('.pager .finish').show();
+                    $('#wizard').find('.pager .finish').removeClass('disabled');
+                } else {
+                    $('#wizard').find('.pager .next').show();
+                    $('#wizard').find('.pager .finish').hide();
+                }
+            }
+        });
+
+        $('#wizard .finish').click(function () {
+            alert('Wizard finalizado');
+        });
+
+    });
+	</script>
+

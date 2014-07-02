@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="servicios.contpaqi.com" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="servicios.contpaqi.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="servicios.contpaqi.com/Imports">
+      <xsd:import schemaLocation="https://serviciospruebas.contpaqi.com:7446/LicensingServices/LicensingServices.svc?xsd=xsd0" namespace="servicios.contpaqi.com" />
+      <xsd:import schemaLocation="https://serviciospruebas.contpaqi.com:7446/LicensingServices/LicensingServices.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="https://serviciospruebas.contpaqi.com:7446/LicensingServices/LicensingServices.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Licensing" />
+      <xsd:import schemaLocation="https://serviciospruebas.contpaqi.com:7446/LicensingServices/LicensingServices.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="https://serviciospruebas.contpaqi.com:7446/LicensingServices/LicensingServices.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Licensing.Entities" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ILicensingServices_CreateLicense_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateLicense" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingServices_CreateLicense_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateLicenseResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingServices_ValidateSerialService_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateSerialService" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingServices_ValidateSerialService_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateSerialServiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingServices_ValidateService_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateService" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingServices_ValidateService_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateServiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingServices_ActivateService_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActivateService" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingServices_ActivateService_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActivateServiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingServices_UpdateLicense_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateLicense" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingServices_UpdateLicense_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateLicenseResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingServices_GetLicenseInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLicenseInfo" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingServices_GetLicenseInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLicenseInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingServices_Commit_InputMessage">
+    <wsdl:part name="parameters" element="tns:Commit" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingServices_Commit_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CommitResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingServices_GetPendingServices_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPendingServices" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingServices_GetPendingServices_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPendingServicesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingServices_ConsumeHistory_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsumeHistory" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingServices_ConsumeHistory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsumeHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingServices_BlockLicense_InputMessage">
+    <wsdl:part name="parameters" element="tns:BlockLicense" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingServices_BlockLicense_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BlockLicenseResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ILicensingServices">
+    <wsdl:operation name="CreateLicense">
+      <wsdl:input wsaw:Action="servicios.contpaqi.com/ILicensingServices/CreateLicense" message="tns:ILicensingServices_CreateLicense_InputMessage" />
+      <wsdl:output wsaw:Action="servicios.contpaqi.com/ILicensingServices/CreateLicenseResponse" message="tns:ILicensingServices_CreateLicense_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidateSerialService">
+      <wsdl:input wsaw:Action="servicios.contpaqi.com/ILicensingServices/ValidateSerialService" message="tns:ILicensingServices_ValidateSerialService_InputMessage" />
+      <wsdl:output wsaw:Action="servicios.contpaqi.com/ILicensingServices/ValidateSerialServiceResponse" message="tns:ILicensingServices_ValidateSerialService_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidateService">
+      <wsdl:input wsaw:Action="servicios.contpaqi.com/ILicensingServices/ValidateService" message="tns:ILicensingServices_ValidateService_InputMessage" />
+      <wsdl:output wsaw:Action="servicios.contpaqi.com/ILicensingServices/ValidateServiceResponse" message="tns:ILicensingServices_ValidateService_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActivateService">
+      <wsdl:input wsaw:Action="servicios.contpaqi.com/ILicensingServices/ActivateService" message="tns:ILicensingServices_ActivateService_InputMessage" />
+      <wsdl:output wsaw:Action="servicios.contpaqi.com/ILicensingServices/ActivateServiceResponse" message="tns:ILicensingServices_ActivateService_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateLicense">
+      <wsdl:input wsaw:Action="servicios.contpaqi.com/ILicensingServices/UpdateLicense" message="tns:ILicensingServices_UpdateLicense_InputMessage" />
+      <wsdl:output wsaw:Action="servicios.contpaqi.com/ILicensingServices/UpdateLicenseResponse" message="tns:ILicensingServices_UpdateLicense_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLicenseInfo">
+      <wsdl:input wsaw:Action="servicios.contpaqi.com/ILicensingServices/GetLicenseInfo" message="tns:ILicensingServices_GetLicenseInfo_InputMessage" />
+      <wsdl:output wsaw:Action="servicios.contpaqi.com/ILicensingServices/GetLicenseInfoResponse" message="tns:ILicensingServices_GetLicenseInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Commit">
+      <wsdl:input wsaw:Action="servicios.contpaqi.com/ILicensingServices/Commit" message="tns:ILicensingServices_Commit_InputMessage" />
+      <wsdl:output wsaw:Action="servicios.contpaqi.com/ILicensingServices/CommitResponse" message="tns:ILicensingServices_Commit_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPendingServices">
+      <wsdl:input wsaw:Action="servicios.contpaqi.com/ILicensingServices/GetPendingServices" message="tns:ILicensingServices_GetPendingServices_InputMessage" />
+      <wsdl:output wsaw:Action="servicios.contpaqi.com/ILicensingServices/GetPendingServicesResponse" message="tns:ILicensingServices_GetPendingServices_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsumeHistory">
+      <wsdl:input wsaw:Action="servicios.contpaqi.com/ILicensingServices/ConsumeHistory" message="tns:ILicensingServices_ConsumeHistory_InputMessage" />
+      <wsdl:output wsaw:Action="servicios.contpaqi.com/ILicensingServices/ConsumeHistoryResponse" message="tns:ILicensingServices_ConsumeHistory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BlockLicense">
+      <wsdl:input wsaw:Action="servicios.contpaqi.com/ILicensingServices/BlockLicense" message="tns:ILicensingServices_BlockLicense_InputMessage" />
+      <wsdl:output wsaw:Action="servicios.contpaqi.com/ILicensingServices/BlockLicenseResponse" message="tns:ILicensingServices_BlockLicense_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

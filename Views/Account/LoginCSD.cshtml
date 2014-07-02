@@ -1,0 +1,73 @@
+﻿@model NominasSAT.Models.LoginCSDViewModel
+
+@{
+    ViewBag.Title = "Iniciar sesión con CSD";
+    Layout = "../Shared/_LayoutLogin.cshtml";
+}
+<br />
+<br />
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <h2>@ViewBag.Title</h2>
+    </div>
+    <div class="col-md-4" style="text-align:justify;">
+        <div style="height:20px;"></div>
+        <h4><img src="@Url.Content("~/Images/help1.png")" alt="" style="width:14px; margin-right:5px;" />Información importante</h4>
+        <hr />
+        <p>Esta es una forma alterna de ingresar al servicio de CFDI en línea, y se recomienda utilizarla en caso de que haya olvidado la contraseña y no tiene forma de recuperarla (no puede acceder a la cuenta de correo electrónico registrada).
+            </p>
+        <p>Si cree que el CSD o la FIEL y su contraseña están comprometidos, le recomendamos revocar el certificado y generar uno nuevo. 
+            </p>
+        <p>El uso de la FIEL está limitado a las personas fisicas que no hayan tramitado un CSD previamente.</p>
+    </div>
+    <div class="col-md-8">
+        <section id="loginForm">
+            @using (Html.BeginForm("LoginCSD", "Account", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <br />
+                <h4>Utilice su RFC y su FIEL o CSD para iniciar sesión.</h4>
+                <hr />
+                @Html.ValidationSummary(true)
+                <div class="form-group">
+                    @Html.LabelFor(m => m.UserName, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.UserName, null, new { @class = "nw-label-error" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.CertificadoCer, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        <input type="file" name="cer" accept = ".cer" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.CertificadoKey, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        <input type="file" name="key" accept = ".key" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.CertificadoContrasena, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.PasswordFor(m => m.CertificadoContrasena, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.CertificadoContrasena, null, new { @class = "nw-label-error" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-8">
+                        <input type="submit" value="Iniciar sesión" class="btn btn-primary" style="margin-right: 11px;" />
+                        <input type="submit" value="Volver a login" class="btn btn-primary" onclick="document.location.href = 'Login'; return false;" />
+                    </div>
+                </div>
+                <br />
+            }
+        </section>
+    </div>
+    
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

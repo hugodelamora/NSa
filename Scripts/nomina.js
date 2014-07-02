@@ -1,6 +1,7 @@
 ﻿
-
-
+$(function () {
+    $("table").resizableColumns();
+});
 
 function trim(myString) {
     return myString.replace(/^\s+/g, '').replace(/\s+$/g, '')
@@ -34,149 +35,86 @@ function asignaEmpleadoSeleccionado(data) {
 }
 
 $(document).ready(function () {
-    // campos que son de solo lectura
-    //$('#DiasTrabajados').attr('readonly', true);
-    //$('#DiasTrabajados').addClass("disabledField");
-    //$('#RFC').attr('readonly', true);
-    //$('#CURP').attr('readonly', true);
-    //$('#NumSeguroSocial').attr('readonly', true);
-    //$('#FechaInicioLaboral').attr('readonly', true);
-    //$('#SalarioDiario').attr('readonly', true);
-    //$('#SBC').attr('readonly', true);
-    //$('#PSueldosSalariosRayasJornales').attr('readonly', true);
-    //$('#PSueldoExcento').attr('readonly', true);
-    //$('#PSueldoGravado').attr('readonly', true);
-    //$('#PHorasExtrasDobles').attr('readonly', true);
-    //$('#PHorasExtrasTriples').attr('readonly', true);
-    //$('#PHorasExtras').attr('readonly', true);
-    //$('#PHorasExtrasExcento').attr('readonly', true);
-    //$('#PHorasExtrasGravado').attr('readonly', true);
-    //$('#PTotalPercepciones').attr('readonly', true);
-    //$('#DISR').attr('readonly', true);
-    //$('#DSubsidio').attr('readonly', true);
-    //$('#SeguridadSocial').attr('readonly', true);
-    //$('#D1').attr('readonly', true);
-    //$('#D2').attr('readonly', true);
-    //$('#D3').attr('readonly', true);
-    //$('#D4').attr('readonly', true);
-    //$('#D5').attr('readonly', true);
-    //$('#D6').attr('readonly', true);
-    //$('#TotalDeduccion').attr('readonly', true);
-    //$('#SalarioNeto').attr('readonly', true);
-    //$('#DescuentoIncapacidad').attr('readonly', true);
-
-    //$('#RFC').addClass("disabledField");
-    //$('#CURP').addClass("disabledField");
-    //$('#NumSeguroSocial').addClass("disabledField");
-    //$('#FechaInicioLaboral').addClass("disabledField");
-    //$('#SalarioDiario').addClass("disabledField");
-    //$('#SBC').addClass("disabledField");
-
-    //$('#PSueldosSalariosRayasJornales').addClass("disabledField");
-    //$('#PSueldoExcento').addClass("disabledField");
-    //$('#PSueldoGravado').addClass("disabledField");
-    //$('#PHorasExtrasDobles').addClass("disabledField");
-    //$('#PHorasExtrasTriples').addClass("disabledField");
-    //$('#PHorasExtras').addClass("disabledField");
-    //$('#PHorasExtrasExcento').addClass("disabledField");
-    //$('#PHorasExtrasGravado').addClass("disabledField");
-    //$('#PTotalPercepciones').addClass("disabledField");
-    //$('#DISR').addClass("disabledField");
-    //$('#DSubsidio').addClass("disabledField");
-    //$('#SeguridadSocial').addClass("disabledField");
-    //$('#D1').addClass("disabledField");
-    //$('#D2').addClass("disabledField");
-    //$('#D3').addClass("disabledField");
-    //$('#D4').addClass("disabledField");
-    //$('#D5').addClass("disabledField");
-    //$('#D6').addClass("disabledField");
-    //$('#TotalDeduccion').addClass("disabledField");
-    //$('#SalarioNeto').addClass("disabledField");
-    //$('#DescuentoIncapacidad').addClass("disabledField");
-
-
-
     // funciones en los campos que se usan para calcular
-    $('#DiasPagar').focusout(function () {
 
-        calculaDiasTrabajados();
-       
-    })
-    $('#Incidencias').focusout(function () {
-
-        calculaDiasTrabajados();
-
-    })
-    $('#Ausentismo').focusout(function () {
-
-        calculaDiasTrabajados();
-
-    })
-    $('#HorasExtrasDobles').focusout(function () {
-
-        calculaDiasTrabajados();
-
-    })
-    $('#HorasExtrasTriples').focusout(function () {
-
-        calculaDiasTrabajados();
-
-    })
-    $('#PComisiones').focusout(function () {
-
-        calculaDiasTrabajados();
-
-    })
-    $('#POtros').focusout(function () {
-
-        calculaDiasTrabajados();
-
-    })
-    $('#PPrimavacacional').focusout(function () {
-
-        calculaDiasTrabajados();
-
-    })
-    
-    $('#Infonavit').focusout(function () {
-
-        calculaDiasTrabajados();
-
-    })
-    $('#OtrasDeducciones').focusout(function () {
-
-        calculaDiasTrabajados();
-
+    $('#empleados input').focusout(function (eventObject) {
+        $.each(empleadosItems, function (index, value) {
+            calculaSalario(value.codigo);
+        });
     })
    
     
+   
+    $.each(empleadosItems, function (index, value) {
+        calculaSalario(value.codigo);
+    });
+    
+
+    // generamos los widwets iniciales como el del calendario
+
+    var fechaInicio = $('#fechaInicioPeriodo').datepicker({
+        format:"dd-mm-yyyy",
+        onRender: function (date) {
+            return '';
+        }
+    }).on('changeDate', function (ev) {
+        var newDate = new Date(ev.date)
+        newDate.setDate(newDate.getDate() + 1);
+        $('#fechaFinPeriodo').datepicker('setStartDate', newDate);
+        $('#fechaFinPeriodo').datepicker('update', newDate);
+        fechaInicio.hide();
+        $('#fechaFinPeriodo')[0].focus();
+    }).data('datepicker');
+
+    var fechaFin = $('#fechaFinPeriodo').datepicker({
+        format: "dd-mm-yyyy"
+    }).on('changeDate', function (ev2) {
+        fechaFin.hide();
+        var newDateFin = new Date(ev2.date)
+        newDateFin.setDate(newDateFin.getDate());
+        $('#fechaDePago').datepicker('update', newDateFin);
+        actualizaDiasPago();
+    }).data('datepicker');
+    
+
+    var fechaPago = $('#fechaDePago').datepicker({
+        format: "dd-mm-yyyy"
+    }).on('changeDate', function (ev) {
+        fechaPago.hide();
+    }).data('datepicker');
+
+
+    // si es que viene una nomina ya
+    if (nominasTimradas.length > 0){
+        cargaNomina();
+    }
 
 });
 
-function calculaDiasTrabajados() {
+function calculaSalario(empleado) {
 
     // variables iniciales
     var ZonaSalarioMin = $('#ZonaSalarioMin').val();
     var HorasExtrasMaximas = 9;
 
     
-    var SalarioDiario = parseFloat($('#SalarioDiario').val()); //C
-    var SBC = parseFloat($('#SBC').val()); //D
-    var DiasPagar = parseInt($('#DiasPagar').val()); // E
-    var Incidencias = parseInt($('#Incidencias').val()); // F
-    var Ausentismo = parseInt($('#Ausentismo').val()); // G
-    var HorasExtrasDobles = parseFloat($('#HorasExtrasDobles').val()); //I
-    var HorasExtrasTriples = parseFloat($('#HorasExtrasTriples').val()); //J
-    var DiasTrabajados = parseFloat($('#DiasPagar').val() - parseInt($('#Incidencias').val()) - parseInt($('#Ausentismo').val()));
+    var SalarioDiario = parseFloat($('#empleado_' + empleado).find(valSalarioDiario).text().trim()); //C
+    var SBC = parseFloat($('#empleado_' + empleado).find(valSBC).text().trim()); //C
+    var DiasPagar = parseInt($('#empleado_' + empleado).find(valDiasPagar).val()); // E
+    var Incidencias = parseInt($('#empleado_' + empleado).find(valIncidencias).val()); // F
+    var Ausentismo = parseInt($('#empleado_' + empleado).find(valAusentismo).val()); // G
+    var HorasExtrasDobles = parseFloat($('#empleado_' + empleado).find(valHorasExtrasDobles).val()); //I
+    var HorasExtrasTriples = parseFloat($('#empleado_' + empleado).find(valHorasExtrasTriples).val()); //J
+    var DiasTrabajados = parseFloat(DiasPagar - Incidencias - Ausentismo);
     var PSueldosSalariosRayasJornales = DiasTrabajados *SalarioDiario; //K
     var PSueldoExcento = 0; // L
     var PSueldoGravado = PSueldosSalariosRayasJornales; // M
     var PHorasExtrasDobles = SalarioDiario / 8 * HorasExtrasDobles * 2; //N
     var PHorasExtrasTriples = SalarioDiario / 8 * HorasExtrasTriples * 3; //O
     var PHorasExtras = PHorasExtrasDobles + PHorasExtrasTriples; //P
-    var PComisiones = parseFloat($('#PComisiones').val()); //S
-    var POtros = parseFloat($('#POtros').val()); //V
-    var PPrimavacacional = parseFloat($('#PPrimavacacional').val()); //Y
+    var PComisiones = parseFloat($('#empleado_' + empleado).find(valPComisiones).val()); //S
+    var POtros = parseFloat($('#empleado_' + empleado).find(valPOtros).val()); //V
+    var PPrimavacacional = parseFloat($('#empleado_' + empleado).find(valPPrimavacacional).val()); //Y
     // calculo PHorasExtrasExcento
     if (SalarioDiario <= ZonaSalarioMin) { //C10<=IMSS!$B$21
         //(MIN(I10,9)*C10/8*2)
@@ -349,35 +287,379 @@ function calculaDiasTrabajados() {
     //totales
 
 
-    $('#DiasTrabajados').val(DiasTrabajados); // total de dias trabajados
-    $('#PSueldosSalariosRayasJornales').val(PSueldosSalariosRayasJornales);
-    $('#PSueldoExcento').val(PSueldoExcento);
-    $('#PSueldoGravado').val(PSueldoGravado);
-    $('#PHorasExtrasDobles').val(PHorasExtrasDobles);
-    $('#PHorasExtrasTriples').val(PHorasExtrasTriples);
-    $('#PHorasExtras').val(PHorasExtras);
-    $('#PHorasExtrasExcento').val(PHorasExtrasExcento);
-    $('#PHorasExtrasGravado').val(PHorasExtrasGravado);
+    
+
+    $('#empleado_' + empleado).find(valDiasTrabajados).text(DiasTrabajados)
+    $('#empleado_' + empleado).find(valPSueldosSalariosRayasJornales).text(PSueldosSalariosRayasJornales)
+    $('#empleado_' + empleado).find(valPSueldoExcento).text(PSueldoExcento)
+    $('#empleado_' + empleado).find(valPSueldoGravado).text(PSueldoGravado)
+    $('#empleado_' + empleado).find(valPHorasExtrasDobles).text(PHorasExtrasDobles)
+    $('#empleado_' + empleado).find(valPHorasExtrasTriples).text(PHorasExtrasTriples)
+    $('#empleado_' + empleado).find(valPHorasExtras).text(PHorasExtras)
+    $('#empleado_' + empleado).find(valPHorasExtrasExcento).text(PHorasExtrasExcento)
+    $('#empleado_' + empleado).find(valPHorasExtrasGravado).text(PHorasExtrasGravado)
+
+    $('#empleado_' + empleado).find(valDISR).text(DISR)
+    $('#empleado_' + empleado).find(valDSubsidio).text(DSubsidio)
+    $('#empleado_' + empleado).find(valSeguridadSocial).text(SeguridadSocial)
+    $('#empleado_' + empleado).find(valInfonavit).text(Infonavit)
+    $('#empleado_' + empleado).find(valOtrasDeducciones).text(OtrasDeducciones)
+ 
+    $('#empleado_' + empleado).find(valD1).text(D1)
+    $('#empleado_' + empleado).find(valD2).text(D2)
+    $('#empleado_' + empleado).find(valD3).text(D3)
+    $('#empleado_' + empleado).find(valD4).text(D4)
+    $('#empleado_' + empleado).find(valD5).text(D5)
+    $('#empleado_' + empleado).find(valD6).text(D6)
+
+    $('#empleado_' + empleado).find(valD6).text(DescuentoIncapacidad)
+
+    $('#empleado_' + empleado).find(valPTotalPercepciones).text(PTotalPercepciones)
+    $('#empleado_' + empleado).find(valTotalDeduccion).text(TotalDeduccion)
+    $('#empleado_' + empleado).find(valSalarioNeto).text(SalarioNeto)
+
+}
+
+function timbraNomina() {
+
+    $("#numeroPeriodo").removeClass("input-validation-error")
+    $("#fechaInicioPeriodo").removeClass("input-validation-error")
+    $("#fechaFinPeriodo").removeClass("input-validation-error")
+    $("#tipoPeriodo").removeClass("input-validation-error")
+    $("#fechaDePago").removeClass("input-validation-error")
+    $("#formaDePago").removeClass("input-validation-error")
+
+    // primero validamos que vengan los datos del periodo completos
+    NumeroPeriodo = $("#numeroPeriodo").val();
+    FechaInicioPeriodo = $("#fechaInicioPeriodo").val();
+    FechaFinPeriodo = $("#fechaFinPeriodo").val();
+    TipoPeriodo = $("#tipoPeriodo").val();
+    FechaDePago = $("#fechaDePago").val();
+    FormaDePago = $("#formaDePago").val();
+
+    errores = new Array()
+    // validamos los campos que no son selects
+    if (NumeroPeriodo == "") {
+        errores.push(0);
+        $("#NumeroPeriodo").addClass("input-validation-error");
+    }
+
+    if (FechaInicioPeriodo == "") {
+        errores.push(1);
+        $("#fechaInicioPeriodo").addClass("input-validation-error");
+    }
+    if (FechaFinPeriodo == "") {
+        errores.push(2);
+        $("#fechaFinPeriodo").addClass("input-validation-error");
+    }
+    if (TipoPeriodo == "") {
+        errores.push(3);
+        $("#tipoPeriodo").addClass("input-validation-error");
+    }
+    if (FechaDePago == "") {
+        errores.push(4);
+        $("#fechaDePago").addClass("input-validation-error");
+    }
+    if (FormaDePago == "") {
+        errores.push(5);
+        $("#formaDePago").addClass("input-validation-error");
+    }
+
+    if (FechaInicioPeriodo > FechaFinPeriodo) {
+        // 
+        errores.push(6);
+        $("#fechaFinPeriodo").removeClass("input-validation-error")
+    }
+
+ 
+    if (errores.length>0) {
+        // aqui mostramos los errores
+
+        var ErrorMsg = "";
+        errores.forEach(function (entry) {
+            ErrorMsg += messages["crearNominas"][entry] + "<br/>";
+        });
+        showAlert(ErrorMsg);
+        return false;
+
+    }
+    $('#modalLoading').modal('show');
+    var totalEmpleados = $('#empleados tbody tr').length;
+    var empleadoSeleccionado = "";
+    var nominaCompleta = Array();
+    for (var i = 0; i < totalEmpleados;i++){
+        empleadoSeleccionado = $('#empleados tbody tr')[i].id;
+
+        
+        if ($('#' + empleadoSeleccionado).find(valStatus).html().trim() == "") {
+          
+        
+
+
+
+        var nomina = new Object();
+
+        nomina.DiasTrabajados = parseInt($('#' + empleadoSeleccionado).find(valDiasTrabajados).text().trim());
+
+        //percepciones
+        nomina.PSueldosSalariosRayasJornales = parseFloat($('#' + empleadoSeleccionado).find(valPSueldosSalariosRayasJornales).text().trim());
+        nomina.PSueldoExcento = parseFloat($('#' + empleadoSeleccionado).find(valPSueldoExcento).text().trim());
+        nomina.PSueldoGravado = parseFloat($('#' + empleadoSeleccionado).find(valPSueldoGravado).text().trim());
+        nomina.PHorasExtrasDobles = parseFloat($('#' + empleadoSeleccionado).find(valPHorasExtrasDobles).text().trim());
+        nomina.PHorasExtrasTriples = parseFloat($('#' + empleadoSeleccionado).find(valPHorasExtrasTriples).text().trim());
+        nomina.PHorasExtras = parseFloat($('#' + empleadoSeleccionado).find(valPHorasExtras).text().trim());
+        nomina.PHorasExtrasExcento = parseFloat($('#' + empleadoSeleccionado).find(valPHorasExtrasExcento).text().trim());
+        nomina.PHorasExtrasGravado = parseFloat($('#' + empleadoSeleccionado).find(valPHorasExtrasGravado).text().trim());
+
+        nomina.SalarioDiario = parseFloat($('#' + empleadoSeleccionado).find(valSalarioDiario).text().trim());
+        nomina.SBC = parseFloat($('#' + empleadoSeleccionado).find(valSBC).text().trim());
+        nomina.DiasPagar = parseInt($('#' + empleadoSeleccionado).find(valDiasPagar).val());
+        nomina.Incidencias = parseInt($('#' + empleadoSeleccionado).find(valIncidencias).val());
+        nomina.Ausentismo = parseInt($('#' + empleadoSeleccionado).find(valAusentismo).val());
+        nomina.HorasExtrasDobles = parseFloat($('#' + empleadoSeleccionado).find(valHorasExtrasDobles).val());
+        nomina.HorasExtrasTriples = parseFloat($('#' + empleadoSeleccionado).find(valHorasExtrasTriples).val());
+        nomina.PComisiones = parseFloat($('#' + empleadoSeleccionado).find(valPComisiones).val());
+        nomina.POtros = parseFloat($('#' + empleadoSeleccionado).find(valPOtros).val());
+        nomina.PPrimavacacional = parseFloat($('#' + empleadoSeleccionado).find(valPPrimavacacional).val());
+
+        //Deducciones
+        nomina.DISR = parseFloat($('#' + empleadoSeleccionado).find(valDISR).text().trim());
+        nomina.DSubsidio = parseFloat($('#' + empleadoSeleccionado).find(valDSubsidio).text().trim());
+        nomina.D1 = parseFloat($('#' + empleadoSeleccionado).find(valD1).text().trim());
+        nomina.D2 = parseFloat($('#' + empleadoSeleccionado).find(valD2).text().trim());
+        nomina.D3 = parseFloat($('#' + empleadoSeleccionado).find(valD3).text().trim());
+        nomina.D4 = parseFloat($('#' + empleadoSeleccionado).find(valD4).text().trim());
+        nomina.D5 = parseFloat($('#' + empleadoSeleccionado).find(valD5).text().trim());
+        nomina.D6 = parseFloat($('#' + empleadoSeleccionado).find(valD6).text().trim());
+        nomina.SeguridadSocial = parseFloat($('#' + empleadoSeleccionado).find(valSeguridadSocial).text().trim());
+        nomina.Infonavit = parseFloat($('#' + empleadoSeleccionado).find(valInfonavit).text().trim());
+        nomina.OtrasDeducciones = parseFloat($('#' + empleadoSeleccionado).find(valOtrasDeducciones).text().trim());
+
+        nomina.DescuentoIncapacidad = parseInt($('#' + empleadoSeleccionado).find(valDescuentoIncapacidad).val().trim());
+
+        nomina.PTotalPercepciones = parseFloat($('#' + empleadoSeleccionado).find(valPTotalPercepciones).text().trim());
+        nomina.TotalDeduccion = parseFloat($('#' + empleadoSeleccionado).find(valTotalDeduccion).text().trim());
+        nomina.SalarioNeto = parseFloat($('#' + empleadoSeleccionado).find(valSalarioNeto).text().trim());
+
+        nomina.RFC = $('#' + empleadoSeleccionado).find(valRFC).text().trim();
+        nomina.CURP = $('#' + empleadoSeleccionado).find(valCURP).text().trim();
+        nomina.NumSeguroSocial = $('#' + empleadoSeleccionado).find(valNumSeguroSocial).text().trim();
+        nomina.FechaInicioLaboral = $('#' + empleadoSeleccionado).find(valFechaInicioLaboral).text().trim();
+        
+        nomina.User = parseInt($('#' + empleadoSeleccionado).find(valUser).text().trim());
+        nomina.Empresa = parseInt($('#' + empleadoSeleccionado).find(valEmpresa).text().trim());
+
+
+       // nomina.User = parseInt($('#empleados tbody tr')[0].id.trim().replace("empleado_", ""));
+
+
+
+
+        nominaCompleta.push(nomina);
+
+        }
+    }
+
+    // lo mandamos al controlador por medio de ajax
+
+    var formDataGetView = "nominaCompleta=" + JSON.stringify(nominaCompleta);
+    formDataGetView += "&NumeroPeriodo=" + NumeroPeriodo;
+    formDataGetView += "&FechaInicioPeriodo=" + FechaInicioPeriodo;
+    formDataGetView += "&FechaFinPeriodo=" + FechaFinPeriodo;
+    formDataGetView += "&TipoPeriodo=" + TipoPeriodo;
+    formDataGetView += "&FechaDePago=" + FechaDePago;
+    formDataGetView += "&FormaDePago=" + FormaDePago;
+
+    formDataGetView += "&";
+    formDataGetView += "__RequestVerificationToken=" + $("input[name='__RequestVerificationToken']").val();
+    $.ajax({
+        url: "/NominaCFDI/CreateMasivo/",
+        data: formDataGetView,
+        type: "POST",
+        success: function (data) {
+
+            // obtenemos el objecto General
+
+            var Respuesta = JSON.parse(trim(data).replace(/&quot;/g, '"'));
+           
+
+            // validamos si hay errores
+            var Errores = JSON.parse(trim(Respuesta["Errores"]).replace(/&quot;/g, '"'));
+
+            if (isEmpty(Errores)) {
+                $('#modalLoading').modal('hide');
+                $("#TimbrarNomina").prop('disabled', true);
+            } else {
+                // vemos donde jodidos escribimos los errores que hay
+                var ErrorMsg = "";
+                $.each(Errores, function (index, value) {
+                    ErrorMsg += "<b>"+ index + "</b> : " + value + "<br/>";
+                });
+                $('#modalLoading').modal('hide');
+                showAlert(ErrorMsg)
+
+            }
+            // cremoa el objetos de la respuesta de los timbres para asignarlos a las filas correspondientes
+            var Timbres = JSON.parse(trim(Respuesta["Timbres"]).replace(/&quot;/g, '"'));
+
+            if (Timbres.length > 0) {
+                // aqui comenzamos
+                $("#numeroPeriodo").prop('disabled', true); // deshabilitamos el numero de periodo para que no lo puedan modificar
+                $("#NuevaNomina").prop('disabled', false);
+                $("#EnviarRecibos").prop('disabled', false);
+                Timbres.forEach(function (timbre) {
+
+                    // tenemos que tener bien definidos los metodos que mandan hacer cosas como bajar XML, PDF y enviar emilio
+                    $('#empleado_' + timbre.Empleado).find(valStatus).append('<a href="alert(\'timbre.uuid\')"> <span class="glyphicon glyphicon-ok" title="Documento timbrado"></span></a>');
+                    $('#empleado_' + timbre.Empleado).find(valPDF).append('<a href="#"> <span class="glyphicon glyphicon-qrcode" title="Bajar PDF"></span></a>');
+                    $('#empleado_' + timbre.Empleado).find(valXML).append('<a href="#"> <span class="glyphicon glyphicon-file" title="Bajar XML"></span></a>');
+                    $('#empleado_' + timbre.Empleado).find(valemail).append('<a href="#"> <span class="glyphicon glyphicon-envelope" title="Enviar correo electrónico"></span></a>');
+
+
+                });
+            }
+        }
+    });
+
+
+
+}
+
+function recuperarNomina() {
+    var numeroPeriodoVal = parseInt( $("#numeroPeriodo").val());
    
-    $('#DISR').val(DISR);
-    $('#DSubsidio').val(DSubsidio);
-    $('#SeguridadSocial').val(SeguridadSocial);
-    $('#Infonavit').val(Infonavit);
-    $('#OtrasDeducciones').val(OtrasDeducciones);
-    
-    $('#D1').val(D1);
-    $('#D2').val(D2);
-    $('#D3').val(D3);
-    $('#D4').val(D4);
-    $('#D5').val(D5);
-    $('#D6').val(D6);
+    if(!isNaN(numeroPeriodoVal)){
+        // recargamos la pagina enviando el parametro del periodo de nomina
+        location.href = window.location.protocol + "//" +window.location.host + "/NominaCFDI/CreateNomina/" + numeroPeriodoVal;
 
-    $('#DescuentoIncapacidad').val(DescuentoIncapacidad);
-    
-    $('#PTotalPercepciones').val(PTotalPercepciones);
-    $('#TotalDeduccion').val(TotalDeduccion);
-    $('#SalarioNeto').val(SalarioNeto);
-    
+    } else {
+        //alertamos que el periodo no es valido
+        showAlert(messages["crearNominas"][9]);
+       
+    }
+
+
+}
+
+
+function cargaNomina() {
+
+    // esta función es por si tenemos ya la nomina recuperada
 
     
+    $.each(nominasTimradas, function (index, value) {
+        
+        var empleadoid = value.User;
+        
+
+
+        
+        $('#empleado_' + empleadoid).find(valDiasPagar).val(value.DiasPagar);
+        $('#empleado_' + empleadoid).find(valIncidencias).val(value.Incidencias);
+        $('#empleado_' + empleadoid).find(valAusentismo).val(value.Ausentismo);
+
+        $('#empleado_' + empleadoid).find(valHorasExtrasDobles).val(value.HorasExtrasDobles);
+        $('#empleado_' + empleadoid).find(valHorasExtrasTriples).val(value.HorasExtrasTriples);
+
+        $('#empleado_' + empleadoid).find(valPComisiones).val(value.PComisiones);
+        $('#empleado_' + empleadoid).find(valPOtros).val(value.POtros);
+        $('#empleado_' + empleadoid).find(valPPrimavacacional).val(value.PPrimavacacional);
+
+
+        calculaSalario(empleadoid)
+
+
+    });
+
+}
+
+function nuevaNomina() {
+
+    if (validarSiNoTimbrado()){
+        bootbox.confirm(messages["crearNominas"][8], function (result) {
+            if (result) {
+                nuevaNominaConfirmado();
+            }
+        });
+    } else {
+        nuevaNominaConfirmado();
+    }
+   
+  
+
+}
+
+function nuevaNominaConfirmado() {
+
+    NumeroPeriodo = $("#numeroPeriodo").val();
+    var formDataGetView = "&NumeroPeriodo=" + NumeroPeriodo;
+    formDataGetView += "&";
+    formDataGetView += "__RequestVerificationToken=" + $("input[name='__RequestVerificationToken']").val();
+    $.ajax({
+        url: "/NominaCFDI/NuevaNomina/",
+        data: formDataGetView,
+        type: "POST",
+        success: function (data) {
+
+            // obtenemos el objecto General
+            if ((trim(data).replace(/&quot;/g, '"'))=="True") {
+
+                bootbox.alert(messages["crearNominas"][7], function (result) {
+                    location.reload();
+                });
+            } else {
+
+                location.reload();
+            }
+
+        }
+    });
+
+}
+
+function validarSiNoTimbrado() {
+    var estatus = false;
+    var totalEmpleados = $('#empleados tbody tr').length;
+    for (var i = 0; i < totalEmpleados; i++) {
+        empleadoSeleccionado = $('#empleados tbody tr')[i].id;
+        if ($('#' + empleadoSeleccionado).find(valStatus).text().trim() == "") {
+            estatus = true;
+        }
+    }
+
+    return estatus;
+
+}
+
+function actualizaDiasPago() {
+    var diasDeDiferencia = diasDiferencia()
+    // recorremos a los usuarios y le ponemos el valor en los dua a pagar
+    var totalEmpleados = $('#empleados tbody tr').length;
+    var empleadoSeleccionado = "";
+
+    for (var i = 0; i < totalEmpleados; i++) {
+        empleadoSeleccionado = $('#empleados tbody tr')[i].id;
+        $('#' + empleadoSeleccionado).find(valDiasPagar).val(diasDeDiferencia);
+        calculaSalario(parseInt(empleadoSeleccionado.replace("empleado_", "")));
+    }
+}
+
+function diasDiferencia() {
+
+    var fechaInicioPeriodoVal = ($('#fechaInicioPeriodo').datepicker().val()).split("-");
+    var fechaFinPeriodoVal = ($('#fechaFinPeriodo').datepicker().val()).split("-");
+    var fechaInicioFormat = new Date(fechaInicioPeriodoVal[2], fechaInicioPeriodoVal[1], fechaInicioPeriodoVal[0]);
+    var fechaFinFormat = new Date(fechaFinPeriodoVal[2], fechaFinPeriodoVal[1], fechaFinPeriodoVal[0]);
+    return DateDiff.inDays(fechaInicioFormat, fechaFinFormat);
+    
+}
+
+var DateDiff = {
+
+    inDays: function (d1, d2) {
+        var t2 = d2.getTime();
+        var t1 = d1.getTime();
+
+        return parseInt((t2 - t1) / (24 * 3600 * 1000));
+    }
 }

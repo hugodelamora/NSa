@@ -1,41 +1,203 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+
+@{
+    if (Request.IsAuthenticated)
+    {
+        if (!NominasSAT.Models.GlobalVariables.CompletedWizard.HasValue)
+        {
+            using (var db = new NominasSAT.Models.ApplicationDbContext())
+            {
+                var id = User.Identity.GetUserId().ToString();
+                NominasSAT.Models.GlobalVariables.CompletedWizard = db.Users.Where(x => x.Id == id).First().CompletedWizard;
+            }
+        }
+
+        if (!NominasSAT.Models.GlobalVariables.CompletedWizard.Value)
+        {
+            if (!Path.GetFileName(Request.PhysicalPath).ToString().Contains("AsistenteConfiguracion"))
+            {
+                Response.Redirect("~/AsistenteConfiguracion");
+            }
+        }
+    }
+    else
+    {
+        Response.Redirect("~/", true);
+    }
+}
+
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Nominacito Web</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-
-</head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Nominacito Web", "Index", "Home", null, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-               
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
-        </footer>
-    </div>
-
+    <meta charset="UTF-8">
+    <title>Nóminas WEB - @ViewBag.Title</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- bootstrap 3.0.2 -->
+    @Styles.Render("~/assets/css/bootstrap.min.css")
+    <!-- font Awesome -->
+    @Styles.Render("~/assets/css/font-awesome.min.css")
+    <!-- Theme style -->
+    @Styles.Render("~/assets/css/AdminLTE.css")
     @Scripts.Render("~/bundles/jquery")
+
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+</head>
+<body class="skin-blue">
+    <!-- header logo: style can be found in header.less -->
+    <header class="header">
+        @Html.ActionLink("Nóminas Web", "Index", "Home", null, new { @class = "logo", style = "font-family:'Source Sans Pro', sans-serif; font-size:20px; font-weight:bold;" })
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <div class="navbar-right">
+                <ul class="nav navbar-nav">
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="glyphicon glyphicon-user"></i>
+                            <span>@User.Identity.GetUserName().ToUpper()<i class="caret"></i></span>
+                        </a>
+                        <ul class="dropdown-menu" style="width: 380px;">
+                            <!-- User image -->
+                            <li class="user-header bg-light-blue" style="height: 80px;">
+                                <p>
+                                    @User.Identity.GetUserName().ToUpper()
+                                    <small>Días restantes: 365</small>
+                                </p>
+                            </li>
+                            <!-- Menu Body -->
+                            <li class="user-body">
+                                <div class="col-xs-3 text-center">
+                                    <a href="#">Acerca de</a>
+                                </div>
+                                <div class="col-xs-6 text-center">
+                                    <a href="#">Incrementar vigencia</a>
+                                </div>
+                                <div class="col-xs-3 text-center">
+                                    <a href="#">Comprar</a>
+                                </div>
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="#" class="btn btn-default btn-flat">Mi cuenta</a>
+                                </div>
+                                <div class="pull-right">
+                                    @{
+                                        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                                        {
+                                        
+                                        <a href="javascript:document.getElementById('logoutForm').submit();" class="btn btn-default btn-flat">Cerrar sesión</a>
+                                        }
+                                    }
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="wrapper row-offcanvas row-offcanvas-left">
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="left-side sidebar-offcanvas">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img src= "@Url.Content("~/Images/user1.png")" alt="" class="img-circle" />
+                    </div>
+                    <div class="pull-left info">
+                        <p>@User.Identity.GetUserName().ToUpper()</p>
+
+                        <a href="#"><i class="fa fa-circle text-success"></i>Online</a>
+                    </div>
+                </div>
+                <!-- search form -->
+                <form action="#" method="get" class="sidebar-form">
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control" placeholder="Buscar..." />
+                        <span class="input-group-btn">
+                            <button type='submit' name='seach' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </form>
+                <!-- /.search form -->
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu">
+                    <li>
+                        <a href="@Url.Content("~/")">
+                            <i class="fa fa-home"></i><span>Inicio</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-asterisk"></i><span>Asistente de configuración</span>
+                        </a>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-table"></i>
+                            <span>Catálogos</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Datos de la empresa</a></li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Empleados</a></li>
+                            <li><a href="@Url.Content("~/IMSS")"><i class="fa fa-angle-double-right"></i>IMSS</a></li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>ISR</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-bars"></i>
+                            <span>CFDI</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Generar recibos</a></li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Historial de recibos</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-question-circle"></i>
+                            <span>Ayuda</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Preguntas frecuentes</a></li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Tutorial en video</a></li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Ayuda completa</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+        @RenderBody()
+
+    </div>
+    <!-- ./wrapper -->
+    <!-- AdminLTE App -->
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/admin")
     @RenderSection("scripts", required: false)
+
+
 </body>
 </html>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Licensing" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Licensing" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="https://serviciospruebas.contpaqi.com:7446/LicensingServices/LicensingServices.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="https://serviciospruebas.contpaqi.com:7446/LicensingServices/LicensingServices.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Licensing.Entities" />
+  <xs:complexType name="ArrayOfService">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Service" nillable="true" type="tns:Service" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfService" nillable="true" type="tns:ArrayOfService" />
+  <xs:complexType name="Service">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActivationDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DaysToActivate" type="xs:int" />
+      <xs:element minOccurs="0" name="EndDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FeatureList" nillable="true" type="tns:ArrayOfFeature" />
+      <xs:element minOccurs="0" name="Inactive" type="xs:int" />
+      <xs:element minOccurs="0" name="ServiceID" type="xs:int" />
+      <xs:element minOccurs="0" name="ServiceName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Unlimited" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Service" nillable="true" type="tns:Service" />
+  <xs:complexType name="ArrayOfFeature">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Feature" nillable="true" type="tns:Feature" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFeature" nillable="true" type="tns:ArrayOfFeature" />
+  <xs:complexType name="Feature">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Balance" type="xs:float" />
+      <xs:element minOccurs="0" name="EndDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ID" type="xs:int" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Identifiers" nillable="true" type="q1:ArrayOfstring" />
+      <xs:element minOccurs="0" name="Inactive" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Unlimited" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Feature" nillable="true" type="tns:Feature" />
+  <xs:complexType name="LicensingResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="LicenseID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Result" nillable="true" type="tns:Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LicensingResult" nillable="true" type="tns:LicensingResult" />
+  <xs:complexType name="Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MessageID" type="xs:int" />
+      <xs:element minOccurs="0" name="ResultType" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Result" nillable="true" type="tns:Result" />
+  <xs:complexType name="SerialBase">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActivationKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DigitalSign" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SerialNumber" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SiteCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VersionTag" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SerialBase" nillable="true" type="tns:SerialBase" />
+  <xs:complexType name="ValidateResult">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:LicensingResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ServiceInfo" nillable="true" type="tns:Service" />
+          <xs:element minOccurs="0" name="ValidationCode" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ValidateResult" nillable="true" type="tns:ValidateResult" />
+  <xs:complexType name="QueryLicenseResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="License" nillable="true" type="tns:License" />
+      <xs:element minOccurs="0" name="Result" nillable="true" type="tns:Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="QueryLicenseResult" nillable="true" type="tns:QueryLicenseResult" />
+  <xs:complexType name="License">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActivationDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Blocked" type="xs:int" />
+      <xs:element minOccurs="0" name="CreationDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="SerialNumber" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ServiceList" nillable="true" type="tns:ArrayOfService" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="License" nillable="true" type="tns:License" />
+  <xs:complexType name="ConsumeHistoryResult">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:LicensingResult">
+        <xs:sequence>
+          <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Licensing.Entities" minOccurs="0" name="Movements" nillable="true" type="q2:ArrayOfMovement" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ConsumeHistoryResult" nillable="true" type="tns:ConsumeHistoryResult" />
+</xs:schema>

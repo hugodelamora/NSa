@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="https://serviciospruebas.contpaqi.com:7446/LicensingServices/LicensingServices.svc?wsdl" docRef="https://serviciospruebas.contpaqi.com:7446/LicensingServices/LicensingServices.svc" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+</discovery>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="servicios.contpaqi.com" elementFormDefault="qualified" targetNamespace="servicios.contpaqi.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="https://serviciospruebas.contpaqi.com:7446/LicensingServices/LicensingServices.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Licensing" />
+  <xs:element name="CreateLicense">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Licensing" minOccurs="0" name="Services" nillable="true" type="q1:ArrayOfService" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateLicenseResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Licensing" minOccurs="0" name="CreateLicenseResult" nillable="true" type="q2:LicensingResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidateSerialService">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Licensing" minOccurs="0" name="serial" nillable="true" type="q3:SerialBase" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Licensing" minOccurs="0" name="Service" nillable="true" type="q4:Service" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidateSerialServiceResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Licensing" minOccurs="0" name="ValidateSerialServiceResult" nillable="true" type="q5:ValidateResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidateService">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LicenseID" nillable="true" type="xs:string" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Licensing" minOccurs="0" name="service" nillable="true" type="q6:Service" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidateServiceResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Licensing" minOccurs="0" name="ValidateServiceResult" nillable="true" type="q7:ValidateResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActivateService">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LicenseID" nillable="true" type="xs:string" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Licensing" minOccurs="0" name="Service" nillable="true" type="q8:Service" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActivateServiceResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Licensing" minOccurs="0" name="ActivateServiceResult" nillable="true" type="q9:LicensingResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateLicense">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LicenseID" nillable="true" type="xs:string" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Licensing" minOccurs="0" name="Services" nillable="true" type="q10:ArrayOfService" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateLicenseResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Licensing" minOccurs="0" name="UpdateLicenseResult" nillable="true" type="q11:LicensingResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetLicenseInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LicenseID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ServiceID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetLicenseInfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Licensing" minOccurs="0" name="GetLicenseInfoResult" nillable="true" type="q12:QueryLicenseResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Commit">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LicenseID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ValidationCode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Reference" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CommitResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Licensing" minOccurs="0" name="CommitResult" nillable="true" type="q13:LicensingResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPendingServices">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LicenseID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPendingServicesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/Licensing" minOccurs="0" name="GetPendingServicesResult" nillable="true" type="q14:QueryLicenseResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsumeHistory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LicenseID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ServiceID" type="xs:int" />
+        <xs:element minOccurs="0" name="FeatureID" type="xs:int" />
+        <xs:element minOccurs="0" name="StartDate" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="EndDate" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsumeHistoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/Licensing" minOccurs="0" name="ConsumeHistoryResult" nillable="true" type="q15:ConsumeHistoryResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BlockLicense">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="licenseID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="serviceID" type="xs:int" />
+        <xs:element minOccurs="0" name="Blocked" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BlockLicenseResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Licensing" minOccurs="0" name="BlockLicenseResult" nillable="true" type="q16:LicensingResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

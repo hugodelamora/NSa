@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="49424f10-c901-4e8b-9dcb-e98305bce2ac" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="https://serviciospruebas.contpaqi.com:7446/LicensingServices/LicensingServices.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="LicensingServices.xsd" MetadataType="Schema" ID="213394d7-1db8-4c1e-933c-d77877d23910" SourceId="1" SourceUrl="https://serviciospruebas.contpaqi.com:7446/LicensingServices/LicensingServices.svc?xsd=xsd1" />
+    <MetadataFile FileName="LicensingServices1.xsd" MetadataType="Schema" ID="c57820ad-c5b8-4eeb-a484-a6a4feb15db7" SourceId="1" SourceUrl="https://serviciospruebas.contpaqi.com:7446/LicensingServices/LicensingServices.svc?xsd=xsd0" />
+    <MetadataFile FileName="LicensingServices2.xsd" MetadataType="Schema" ID="d721afff-87a4-4705-a74e-ffc9c41b405a" SourceId="1" SourceUrl="https://serviciospruebas.contpaqi.com:7446/LicensingServices/LicensingServices.svc?xsd=xsd2" />
+    <MetadataFile FileName="LicensingServices3.xsd" MetadataType="Schema" ID="8e2d17e4-97ab-4542-a250-9680f1274ca7" SourceId="1" SourceUrl="https://serviciospruebas.contpaqi.com:7446/LicensingServices/LicensingServices.svc?xsd=xsd4" />
+    <MetadataFile FileName="LicensingServices.disco" MetadataType="Disco" ID="8526c329-5f7b-4300-bcc6-73ac4d33a6e2" SourceId="1" SourceUrl="https://serviciospruebas.contpaqi.com:7446/LicensingServices/LicensingServices.svc?disco" />
+    <MetadataFile FileName="LicensingServices.wsdl" MetadataType="Wsdl" ID="bc5de77a-1ae5-45aa-a227-7be285e7e2f5" SourceId="1" SourceUrl="https://serviciospruebas.contpaqi.com:7446/LicensingServices/LicensingServices.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="LicensingServices4.xsd" MetadataType="Schema" ID="cf9397ea-05ac-40b8-a8e5-096f742fe081" SourceId="1" SourceUrl="https://serviciospruebas.contpaqi.com:7446/LicensingServices/LicensingServices.svc?xsd=xsd3" />
+    <MetadataFile FileName="LicensingServices1.wsdl" MetadataType="Wsdl" ID="c22bd79d-9c88-4e52-8f4f-7a2a8aa33382" SourceId="1" SourceUrl="https://serviciospruebas.contpaqi.com:7446/LicensingServices/LicensingServices.svc?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

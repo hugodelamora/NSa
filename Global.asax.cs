@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Microsoft.Practices.EnterpriseLibrary.SemanticLogging;
+using NominasSAT.Logger;
+using System.Diagnostics.Tracing;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using System.Web.Security;
-using System.Web.SessionState;
+
+using System.Web.Http;
 
 namespace NominasSAT
 {
@@ -19,9 +18,19 @@ namespace NominasSAT
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            //string l4net = Server.MapPath("~/log4net.config");
-            //log4net.Config.XmlConfigurator.ConfigureAndWatch(new System.IO.FileInfo(l4net));
-            NominasSAT.Log4NetManager.InitializeLog4Net();
+            consumehemc();
+        }
+        public void consumehemc(){
+            AreaRegistration.RegisterAllAreas();
+
+            WebApiConfig.Register(GlobalConfiguration.Configuration);
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            //var sqlListener = SqlDatabaseLog.CreateListener("HomeController", "Data Source=.;Initial Catalog=Logging;Integrated Security=True");
+            var sqlListener = SqlDatabaseLog.CreateListener("AccountController", "Data Source=.;Initial Catalog=Logging;Integrated Security=True");
+            sqlListener.EnableEvents(BasicLogger.Log, EventLevel.Error);
         }
     }
 }

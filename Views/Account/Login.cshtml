@@ -2,32 +2,46 @@
 
 @{
     ViewBag.Title = "Iniciar sesión";
+    Layout = "../Shared/_LayoutLogin.cshtml";
 }
-
-<h2>@ViewBag.Title.</h2>
+<br />
+<br />
+<br />
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
+        <h2>@ViewBag.Title</h2>
+    </div>
+    <div class="col-md-4" style="text-align:justify;">
+        <div style="height:20px;"></div>
+        <h4>Bienvenido a Nóminas WEB</h4>
+        <hr />
+        <p>Bienvenido al servicio de emisión y timbrado de recibos electrónicos de nómina para contribuyentes en el régimen de incorporación fiscal.
+            </p>
+        <p>Para iniciar sesión por favor ingrese su usuario y contraseña utilizadas durante su registro. Si no la recuerda de clic en "Olvidaste tu contraseña". Si desea utilizar su CSD o FIEL, de clic en "Entrar con CSD".</p>
+    </div>
+    <div class="col-md-8"> 
         <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { ReturnUrl = ViewBag.ReturnUrl, @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
-                <h4>Utilice una cuenta local para iniciar sesión.</h4>
+                <br />
+                <h4>Utilice su RFC para iniciar sesión.</h4>
                 <hr />
                 @Html.ValidationSummary(true)
                 <div class="form-group">
-                    @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
+                    @Html.LabelFor(m => m.UserName, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
                         @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.UserName)
+                        @Html.ValidationMessageFor(m => m.UserName, null, new { @class = "nw-label-error" })
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
+                    @Html.LabelFor(m => m.Password, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
                         @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password)
+                        @Html.ValidationMessageFor(m => m.Password, null, new { @class = "nw-label-error" })
                     </div>
-                </div>
+                </div>@*
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <div class="checkbox">
@@ -35,24 +49,38 @@
                             @Html.LabelFor(m => m.RememberMe)
                         </div>
                     </div>
-                </div>
+                </div>*@
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Iniciar sesión" class="btn btn-default" />
+                    <div class="col-md-offset-4 col-md-8">
+                        @Html.ActionLink("¿Olvidaste tu contraseña?", "Recovery")
                     </div>
                 </div>
-                <p>
-                    @Html.ActionLink("Registrarse", "Register") si no dispone de una cuenta local.
-                </p>
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-8">
+                        <input type="submit" value="Iniciar sesión" class="btn btn-primary" style="margin-right: 11px;" />
+                        <input type="submit" value="Entrar con CSD" class="btn btn-primary" onclick="document.location.href = 'LoginCSD'; return false;" />
+                    </div>
+                </div>
+                <br />
+                <div class="col-md-offset-4 col-md-8">
+                    <p>
+                        ¿Aún no estas registrado? @Html.ActionLink("Regístrate aquí", "Register").
+                    </p>
+                </div>
             }
-        </section>
-    </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new { Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })
         </section>
     </div>
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+}
+
+@if (ViewBag.CustomErrors != null && ViewBag.CustomErrors != "")
+{
+    <script>
+        $(document).ready(
+                function () {
+                    showAlert('@ViewBag.CustomErrors');
+                });
+    </script>
 }

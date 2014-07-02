@@ -7,8 +7,22 @@ using System.Web;
 
 namespace NominasSAT.Models
 {
+
+    public class NominaTimbrada
+    {
+        public int Empleado { get; set; }
+        public string uuid { get; set; }
+        public string xml { get; set; }
+    }
+
     public class NominaCFDI
     {
+        public enum StatusNomina
+        {
+            sinTimbrar,
+            timbrado
+        }
+
         [Key]
         public int NominaID { get; set; }
         // Datos del usuario
@@ -96,5 +110,9 @@ namespace NominasSAT.Models
 
         [Display(Name = "XML")]
         public string XML { get; set; }
+
+        // datos del periodo
+        public int NominaPeriodo { get; set; }
+        public StatusNomina Status { get; set; }
     }
 }

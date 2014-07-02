@@ -286,6 +286,20 @@ namespace NominasSAT.Migrations
                 new Periodo { PeriodoID = 1, PeriodoP=2014, Predeterminado = true },
                 new Periodo { PeriodoID = 2, PeriodoP=2015, Predeterminado = false }
                 );
+
+            context.TipoPeriodoes.AddOrUpdate(
+                new TipoPeriodo { PeriodoId = 1, Nombre = "Semanal", DiasMin = 7, DiasMax = 7, Indice = 1 },
+                new TipoPeriodo { PeriodoId = 2, Nombre = "Quincenal", DiasMin = 14, DiasMax = 16, Indice = 2 },
+                new TipoPeriodo { PeriodoId = 3, Nombre = "Catorcenal", DiasMin = 14, DiasMax = 14, Indice = 3 },
+                new TipoPeriodo { PeriodoId = 4, Nombre = "Mensual", DiasMin = 30, DiasMax = 30, Indice = 4 },
+                new TipoPeriodo { PeriodoId = 5, Nombre = "Extraordinario", DiasMin = 0, DiasMax = 0, Indice = 5 }
+                );
+
+            context.FormadePagoes.AddOrUpdate(
+                new FormadePago { PagoId=1, Nombre="Efectivo",Indice=1},
+                new FormadePago { PagoId=1, Nombre="Tarjeta",Indice=2},
+                new FormadePago { PagoId=1, Nombre="Cheque",Indice=3}
+                );
         }
     }
 }

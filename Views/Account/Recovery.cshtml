@@ -1,0 +1,82 @@
+﻿@using BotDetect.Web.UI.Mvc;
+
+@model NominasSAT.Models.RecoveryViewModel
+
+@{
+    ViewBag.Title = "Recuperar contraseña";
+    Layout = "../Shared/_LayoutLogin.cshtml";
+}
+<link href="@BotDetect.Web.CaptchaUrls.Absolute.LayoutStyleSheetUrl"
+    rel="stylesheet" type="text/css" />
+<br />
+<br />
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <h2>@ViewBag.Title</h2>
+    </div>
+    <div class="col-md-4" style="text-align: justify;">
+        <div style="height: 20px;"></div>
+        <h4>
+            <img src="@Url.Content("~/Images/help1.png")" alt="" style="width:14px; margin-right:5px;" />Información importante</h4>
+        <hr />
+        <p>Si olvidó su contraseña puede recuperarla a través del siguiente formulario. </p>
+        <p>Por favor ingrese su RFC, además para continuar ingrese correctamente las letras indicadas en el recuadro. </p>
+        <p>Recibirá un correo electrónico que contendrá una liga con la cual podrá reestablecer su contraseña. </p>
+    </div>
+    <div class="col-md-8">
+        <section id="loginForm">
+            @using (Html.BeginForm("Recovery", "Account", FormMethod.Post, new { ReturnUrl = ViewBag.ReturnUrl, @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <br />
+                <h4>Ingrese su RFC y capture el CAPTCHA correcto.</h4>
+                <hr />
+                @Html.ValidationSummary(true)
+                <div class="form-group">
+                    @Html.LabelFor(m => m.UserName, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.UserName, null, new { @class = "nw-label-error" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("CAPTCHA", new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @{ MvcCaptcha sampleCaptcha = new MvcCaptcha("SampleCaptcha"); }
+                        @Html.Captcha(sampleCaptcha)
+                        @Html.TextBox("CaptchaCode")
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-8">
+                        <input type="submit" value="Enviar" class="btn btn-primary" style="margin-right: 11px;" />
+                        @*<input type="submit" value="Volver a Login" class="btn btn-primary" onclick="document.location.href = 'Login'; return false;" />*@
+                    </div>
+                </div>
+            }
+        </section>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script>
+    $(document).ready(
+        function () {
+            document.getElementById("CaptchaCode").style.width = "250px";
+            document.getElementById("CaptchaCode").style.marginTop = "10px";
+        });
+
+</script>
+
+@if (ViewBag.CustomErrors != null && ViewBag.CustomErrors != "")
+{
+    <script>
+        $(document).ready(
+                function () {
+                    showAlert('@ViewBag.CustomErrors');
+                });
+    </script>
+}

@@ -11,20 +11,30 @@ using Microsoft.Owin.Security;
 using NominasSAT.Models;
 using System.Security.Cryptography.X509Certificates;
 using System.Configuration;
+using BotDetect.Web.UI.Mvc;
+using Microsoft.Practices.EnterpriseLibrary.Logging;
+using Microsoft.Practices.EnterpriseLibrary.Data;
+using Microsoft.Practices.EnterpriseLibrary.Common.Configuration;
+using NominasSAT.Logger;
 
 namespace NominasSAT.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         public AccountController()
             : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
         {
+
         }
 
         public AccountController(UserManager<ApplicationUser> userManager)
         {
             UserManager = userManager;
+            var userValidator = UserManager.UserValidator as UserValidator<ApplicationUser>;
+            userValidator.AllowOnlyAlphanumericUserNames = false;
         }
 
         public UserManager<ApplicationUser> UserManager { get; private set; }
@@ -34,8 +44,30 @@ namespace NominasSAT.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            loghemc();
+
+
             ViewBag.ReturnUrl = returnUrl;
             return View();
+        }
+        public void loghemc() {
+            BasicLogger.Log.Critical("Hello World Critical");
+            BasicLogger.Log.Error("Hello World Error");
+            BasicLogger.Log.Warning("Hello World Warning");
+     /*      
+            BasicLogger.Log.ErrorWithKeywordsControllerAction("Error With Keywords ControllerAction");
+            BasicLogger.Log.ErrorWithKeywordsControllerActionAndKeywordsPage("Error With Keywords ControllerAction And Keywords Page");
+            BasicLogger.Log.ErrorWithKeywordsDiagnosticStartStop("Error With Keywords DiagnosticStartStop");
+            BasicLogger.Log.ErrorWithNoKeywordsDefined("Error With No Keywords Defined");
+
+
+            BasicLogger.Log.WarningWithEventTaskAmazingTask("WarningWithEventTaskAmazingTask");
+            BasicLogger.Log.WarningWithEventTaskPage("WarningWithEventTaskPage");
+            BasicLogger.Log.WarningWithNoEventTaskDefined("WarningWithNoEventTaskDefined");
+
+
+            BasicLogger.Log.WarningWithOpcodePage("WarningWithOpcodePage");
+   */
         }
 
         //
@@ -43,24 +75,92 @@ namespace NominasSAT.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(LoginViewModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var user = await UserManager.FindAsync(model.UserName, model.Password);
-                if (user != null)
-                {
-                    await SignInAsync(user, model.RememberMe);
-                    return RedirectToLocal(returnUrl);
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid username or password.");
-                }
-            }
+                ViewBag.CustomErrors = "";
 
-            // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
-            return View(model);
+                if (ModelState.IsValid)
+                {
+                    var user = await UserManager.FindAsync(model.UserName, model.Password);
+
+                    if (user != null)
+                    {
+                        await SignInAsync(user, false);
+                        return RedirectToLocal("~/");
+                    }
+                    else
+                    {
+                        ViewBag.CustomErrors += "Usuario y/o contraseña inválidos";
+                        return View(model);
+                    }
+                }
+
+                // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
+                return View(model);
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.CustomErrors += ex.Message;
+                return View(model);
+            }
+        }
+
+        //
+        // GET: /Account/Login
+        [AllowAnonymous]
+        public ActionResult LoginCSD()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> LoginCSD(LoginCSDViewModel model, HttpPostedFileBase cer, HttpPostedFileBase key)
+        {
+            try
+            {
+                ViewBag.CustomErrors = "";
+
+                if (ModelState.IsValid)
+                {
+                    //Validate certificates
+                    byte[] cer_InBytes = new byte[(int)cer.InputStream.Length];
+                    cer.InputStream.Read(cer_InBytes, 0, (int)cer.InputStream.Length);
+                    byte[] key_InBytes = new byte[(int)key.InputStream.Length];
+                    key.InputStream.Read(key_InBytes, 0, (int)key.InputStream.Length);
+                    X509Certificate2 certificadoValidate = new System.Security.Cryptography.X509Certificates.X509Certificate2(cer_InBytes);
+                    byte[] pfx = ValidateCertificate(model.UserName.ToUpper(), cer_InBytes, key_InBytes, model.CertificadoContrasena);
+                    if (pfx == null)
+                    {
+                        throw new Exception("El certificado no es valido");
+                    }
+
+                    var user = UserManager.FindByName(model.UserName);
+                    if (user != null)
+                    {
+                        await SignInAsync(user, false);
+                        return RedirectToLocal("~/");
+                    }
+                    else
+                    {
+                        ViewBag.CustomErrors += "Usuario, contraseña o certificados inválidos";
+                        return View(model);
+                    }
+                }
+
+                // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
+                return View(model);
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.CustomErrors += ex.Message;
+                return View(model);
+            }
         }
 
         //
@@ -71,7 +171,6 @@ namespace NominasSAT.Controllers
             return View();
         }
 
-
         //
         // POST: /Account/Register
         [HttpPost]
@@ -79,89 +178,123 @@ namespace NominasSAT.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model, HttpPostedFileBase cer, HttpPostedFileBase key)
         {
-
-            byte[] cer_InBytes = new byte[(int)cer.InputStream.Length];
-            cer.InputStream.Read(cer_InBytes, 0, (int)cer.InputStream.Length);
-
-            byte[] key_InBytes = new byte[(int)key.InputStream.Length];
-            key.InputStream.Read(key_InBytes, 0, (int)key.InputStream.Length);
-
-            X509Certificate2 certificadoValidate = new System.Security.Cryptography.X509Certificates.X509Certificate2(cer_InBytes);
-
-            byte[] pfx = ValidateCertificate(model.RFC.ToUpper(), cer_InBytes, key_InBytes, model.CertificadoContasena);
-
-            if (pfx==null)
+            try
             {
-                throw new Exception("El certificado no es valido");
-            }
+                ViewBag.CustomErrors = "";
 
-
-
-            if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser() { 
-                    UserName = model.UserName,
-                    Nombres = model.Nombres,
-                    Apellidos =  model.Apellidos,
-                    Email = model.Email,
-                    NombreRazonSocial = model.NombreRazonSocial,
-                    RFC = model.RFC,
-                    Regimen = model.Regimen,
-                    RegistroPatronal =  model.RegistroPatronal,
-                    ClaseRiesgoTrabajo =  model.ClaseRiesgoTrabajo,
-                    LugarExpedicion =  model.LugarExpedicion,
-                    Calle = model.Calle,
-                    NumeroExterior =  model.NumeroExterior,
-                    NumeroInterior =  model.NumeroInterior,
-                    Colonia =  model.Colonia,
-                    CP = model.CP,
-                    Ciudad = model.Ciudad,
-                    Municipio =  model.Municipio,
-                    Estado = model.Estado,
-                    CertificadoCer = model.CertificadoCer,
-                    CertificadoKey = model.CertificadoKey,
-                    CertificadoContasena =  model.CertificadoContasena,
-                    PFX = pfx
-                };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                if (ModelState.IsValid)
                 {
+                    byte[] cer_InBytes = new byte[(int)cer.InputStream.Length];
+                    cer.InputStream.Read(cer_InBytes, 0, (int)cer.InputStream.Length);
 
-                    EmpresaController empresaController = new EmpresaController();
-                    Empresa empresa = new Empresa
+                    byte[] key_InBytes = new byte[(int)key.InputStream.Length];
+                    key.InputStream.Read(key_InBytes, 0, (int)key.InputStream.Length);
+
+                    X509Certificate2 certificadoValidate = new System.Security.Cryptography.X509Certificates.X509Certificate2(cer_InBytes);
+
+                    byte[] pfx = ValidateCertificate(model.RFC.ToUpper(), cer_InBytes, key_InBytes, model.CertificadoContrasena);
+
+                    if (pfx == null)
                     {
-                         Nombre = user.NombreRazonSocial,
-                         RFC = user.RFC,
-                         Regimen = user.Regimen,
-                         RegistroPatronal = user.RegistroPatronal,
-                         ClaseRiesgoTrabajo = user.ClaseRiesgoTrabajo,
-                         LugarExpedicion  =  user.LugarExpedicion,
-                         Pais = "México",
-                         Estado = user.Estado,
-                         Localidad = user.Municipio,
-                         Municipio = user.Municipio,
-                         Calle = user.Calle,
-                         NumeroExterior = user.NumeroExterior,
-                         NumeroInterior = user.NumeroInterior,
-                         Colonia = user.Colonia,
-                         CP = user.CP,
-                         PFX = pfx
+                        throw new Exception("El certificado no es valido");
+                    }
 
+                    //Create the new User
+                    var user = new ApplicationUser()
+                    {
+                        Nombres = model.Nombres,
+                        Apellidos = model.Apellidos,
+                        UserName = model.RFC,
+                        Email = model.Email,
+                        RFC = model.RFC,
+                        CertificadoCer = model.CertificadoCer,
+                        CertificadoKey = model.CertificadoKey,
+                        CertificadoContasena = model.CertificadoContrasena,
+                        PFX = pfx,
+                        CompletedWizard = false
                     };
-                    ActionResult CreateEmpresa = empresaController.Create(empresa);
 
+                    //Use the default password
+                    var result = await UserManager.CreateAsync(user, System.Configuration.ConfigurationManager.AppSettings["defaultPassword"].ToString());
+                    if (result.Succeeded)
+                    {
+                        await SignInAsync(user, isPersistent: false);
 
-                    await SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                        //Crear la licencia en BDD
+                        var licencia = new Licencia();
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        AddCustomErrors(result);
+                    }
                 }
-                else
-                {
-                    AddErrors(result);
-                }
+
+                // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
+                return View(model);
+
             }
+            catch (Exception ex)
+            {
+                ViewBag.CustomErrors += ex.Message + "<br>";
+                return View(model);
+            }
+        }
 
-            // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
-            return View(model);
+        //
+        // GET: /Account/Register
+        [AllowAnonymous]
+        public ActionResult Recovery()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/Login
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        [CaptchaValidation("CaptchaCode", "SampleCaptcha", "Incorrect CAPTCHA code!")]
+        public async Task<ActionResult> Recovery(RecoveryViewModel model)
+        {
+            try
+            {
+                ViewBag.CustomErrors = "";
+
+                if (ModelState.IsValid)
+                {
+
+                    //var user = await UserManager.FindAsync(model.UserName, model.Password);
+                    //if (user != null)
+                    //{
+                    //    await SignInAsync(user, model.RememberMe);
+                    //    return RedirectToLocal("~/");
+                    //}
+                    //else
+                    //{
+                    //    ViewBag.CustomErrors += "Usuario y/o contraseña inválidos";
+                    //    return View(model);
+                    //}
+                    return RedirectToAction("RecoveryPassword", "Mail", new { rfc = model.UserName });
+                }
+
+                // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.CustomErrors += ex.Message;
+                return View(model);
+            }
+        }
+
+        private void AddCustomErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ViewBag.CustomErrors += error + "<br>";
+            }
         }
 
         //
@@ -355,7 +488,6 @@ namespace NominasSAT.Controllers
         //
         // POST: /Account/LogOff
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
@@ -447,7 +579,8 @@ namespace NominasSAT.Controllers
 
         private class ChallengeResult : HttpUnauthorizedResult
         {
-            public ChallengeResult(string provider, string redirectUri) : this(provider, redirectUri, null)
+            public ChallengeResult(string provider, string redirectUri)
+                : this(provider, redirectUri, null)
             {
             }
 
@@ -478,7 +611,7 @@ namespace NominasSAT.Controllers
         public byte[] ValidateCertificate(string RFC, byte[] byte_cer, byte[] byte_key, string password)
         {
 
-           
+
             bool validate2 = false;
             byte[] cert_pfx = null;
             try
@@ -498,102 +631,103 @@ namespace NominasSAT.Controllers
 
                     string PathSAT = ConfigurationManager.AppSettings["pathSATFiles"] + @"files SAT\certificadosSAT\";
                     validate2 = bl.validaCertificadoCA(byte_cer, PathSAT);
-                    if (!validate2) { 
+                    if (!validate2)
+                    {
                         throw new Exception("El certificado no está emitido por una entidad certificadora");
                     }
-                   
+
 
                     X509KeyUsageExtension keyUsageExtension;
-                        string KeyUsages;
-                        int isfiel = 0;
+                    string KeyUsages;
+                    int isfiel = 0;
 
-                        for (int i = 0; i <= installedCert.Extensions.Count; i++)
+                    for (int i = 0; i <= installedCert.Extensions.Count; i++)
+                    {
+                        try
                         {
-                            try
-                            {
-                                keyUsageExtension = installedCert.Extensions[i] as X509KeyUsageExtension;
-                                KeyUsages = keyUsageExtension.KeyUsages.ToString();
+                            keyUsageExtension = installedCert.Extensions[i] as X509KeyUsageExtension;
+                            KeyUsages = keyUsageExtension.KeyUsages.ToString();
 
-                                if (keyUsageExtension.KeyUsages.ToString().IndexOf("KeyAgreement") != -1 || keyUsageExtension.KeyUsages.ToString().IndexOf("DataEncipherment") != -1)
-                                {
-                                    isfiel = 1;
-                                }
-                            }
-                            catch (Exception e)
+                            if (keyUsageExtension.KeyUsages.ToString().IndexOf("KeyAgreement") != -1 || keyUsageExtension.KeyUsages.ToString().IndexOf("DataEncipherment") != -1)
                             {
-                                continue;
+                                isfiel = 1;
                             }
+                        }
+                        catch (Exception e)
+                        {
+                            continue;
+                        }
+
+
+                    }
+
+                    if (1 == isfiel)
+                    {
+
+
+                        if (ConfigurationManager.AppSettings["AcceptFIEL"].ToString() == "true")
+                        {
+
+
+
+
+
+                            // tenemos que validar si lo puede hacer por el hecho de que sea una persona fisica
+
+                            if (RFC.Length != 13)
+                            {
+                                throw new Exception("Las personas morales no pueden entrar con un CSD");
+
+                            }
+
+                            // BLCFDRevocados validaLCO = new BLCFDRevocados();
+
+
+                            //// CFDRevocados CFDLCO = validaLCO.spValidaListadoCSD(RFC);
+
+                            // // tenemos que validar si lo puede hacer por el hecho de que no tenga CSD registrado previamente
+                            // //if (CFDLCO != null)
+                            // //{
+                            // //    throw new Exception(MessageExceptions.COD_1488 + MessageExceptions.MSG_1488);
+
+                            // //}
+
+
+                            // CFDRevocados FIELLCO = validaLCO.ValidaRFCsFIEL(RFC, hexString2Ascii(installedCert.SerialNumber));
+                            // // tenemos que validar si lo puede hacer por el hecho de que no tenga CSD registrado previamente
+                            // if (FIELLCO == null)
+                            // {
+                            //     throw new ExceptionFIEL(MessageExceptions.COD_1489_2, MessageExceptions.MSG_1489_2);
+
+                            // }
+
 
 
                         }
-
-                        if (1 == isfiel)
+                        else
                         {
 
+                            // throw new ExceptionFIEL(MessageExceptions.COD_1471, MessageExceptions.MSG_1471);
 
-                            if (ConfigurationManager.AppSettings["AcceptFIEL"].ToString() == "true")
-                            {
-
-                               
-                                
-
-
-                                // tenemos que validar si lo puede hacer por el hecho de que sea una persona fisica
-
-                                if (RFC.Length != 13)
-                                {
-                                    throw new Exception("Las personas morales no pueden entrar con un CSD");
-
-                                }
-
-                               // BLCFDRevocados validaLCO = new BLCFDRevocados();
-
-
-                               //// CFDRevocados CFDLCO = validaLCO.spValidaListadoCSD(RFC);
-
-                               // // tenemos que validar si lo puede hacer por el hecho de que no tenga CSD registrado previamente
-                               // //if (CFDLCO != null)
-                               // //{
-                               // //    throw new Exception(MessageExceptions.COD_1488 + MessageExceptions.MSG_1488);
-
-                               // //}
-
-
-                               // CFDRevocados FIELLCO = validaLCO.ValidaRFCsFIEL(RFC, hexString2Ascii(installedCert.SerialNumber));
-                               // // tenemos que validar si lo puede hacer por el hecho de que no tenga CSD registrado previamente
-                               // if (FIELLCO == null)
-                               // {
-                               //     throw new ExceptionFIEL(MessageExceptions.COD_1489_2, MessageExceptions.MSG_1489_2);
-
-                               // }
-
-                                
-
-                            }
-                            else
-                            {
-
-                               // throw new ExceptionFIEL(MessageExceptions.COD_1471, MessageExceptions.MSG_1471);
-
-                            }
                         }
+                    }
 
-                       
-                        cert_pfx = CertificateValidation.MakeCert.generatePFX(byte_cer, byte_key, password);
 
-                        installedCert = new X509Certificate2(cert_pfx, password, X509KeyStorageFlags.MachineKeySet);
-                        if (null != installedCert)
-                        {
-                            if (!installedCert.Issuer.Contains("O=Servicio de Administración Tributaria"))
-                                throw new Exception("No es un certificado emitido por el SAT");
-                            if ((DateTime.Now > installedCert.NotAfter) || (DateTime.Now < installedCert.NotBefore))
-                                throw new Exception("El certificado no se encuentra dentro de un periodo de validez");
-                            if (!installedCert.HasPrivateKey)
-                                throw new Exception("El certificado no tiene llave privada");
-                            if (!installedCert.Subject.ToUpper().Contains(RFC.ToUpper()))
-                                throw new Exception("El certificado no pertene al contribuyente");
-                        }    
-                   
+                    cert_pfx = CertificateValidation.MakeCert.generatePFX(byte_cer, byte_key, password);
+
+                    installedCert = new X509Certificate2(cert_pfx, password, X509KeyStorageFlags.MachineKeySet);
+                    if (null != installedCert)
+                    {
+                        if (!installedCert.Issuer.Contains("O=Servicio de Administración Tributaria"))
+                            throw new Exception("No es un certificado emitido por el SAT");
+                        if ((DateTime.Now > installedCert.NotAfter) || (DateTime.Now < installedCert.NotBefore))
+                            throw new Exception("El certificado no se encuentra dentro de un periodo de validez");
+                        if (!installedCert.HasPrivateKey)
+                            throw new Exception("El certificado no tiene llave privada");
+                        if (!installedCert.Subject.ToUpper().Contains(RFC.ToUpper()))
+                            throw new Exception("El certificado no pertene al contribuyente");
+                    }
+
                 }
                 else
                     throw new Exception("Ni idea de que error sea 1");
@@ -606,6 +740,6 @@ namespace NominasSAT.Controllers
 
             return cert_pfx;
         }
-         #endregion
+        #endregion
     }
 }

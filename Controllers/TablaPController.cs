@@ -8,7 +8,6 @@ using System.Web;
 using System.Web.Mvc;
 using NominasSAT.Models;
 
-
 namespace NominasSAT.Controllers
 {
     public class TablaPController : Controller

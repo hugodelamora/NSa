@@ -1,5 +1,9 @@
-﻿using System.Web.Mvc;
-using NominasSAT.Mailers;
+﻿using NominasSAT.Mailers;
+//using System.Data;
+using NominasSAT.Models;
+//using System.Data;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace NominasSAT.Controllers
 {
@@ -18,9 +22,14 @@ namespace NominasSAT.Controllers
             //return View();
             return RedirectToAction("Index");
         }
-        public ActionResult RecoveryPassword()
-        {
-            Mailer.RecoveryPassword("hugo.delamora@contpaqi.com", "Recuperación de contraseña", "https://www.contpaqi.com/recovery-password.html", "AAA001122AAA").Send();
+        public ActionResult RecoveryPassword(string rfc)
+        {            
+            string email="";
+            using(ApplicationDbContext db = new ApplicationDbContext()){
+                email = db.Users.FirstOrDefault(y => y.RFC == rfc).Email;
+            }
+                        
+            Mailer.RecoveryPassword(email, "Recuperación de contraseña", "https://www.contpaqi.com/recovery-password.html", rfc).Send();
             //return View();
             return RedirectToAction("Index");
         }

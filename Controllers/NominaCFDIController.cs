@@ -23,9 +23,11 @@ using MasFacturacion.StampingConnector.StampingService;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace NominasSAT.Controllers
 {
+    [Authorize]
     public class NominaCFDIController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -68,8 +70,11 @@ namespace NominasSAT.Controllers
             
             // obtenemos las incapacidades
             List<TipoIncapacidad> incapacidadesFiltradas = db.TipoIncapacidads.ToList();
+         
+
 
             // datos que mandamos por el ViewBag
+           
             ViewBag.Incapacidades = incapacidadesFiltradas.Select(r => new SelectListItem { Text = r.Descripcion, Value = r.Clave.ToString() }).ToList();
             ViewBag.TARMP = controllerISR.getTARMP(RFCPatron).OrderBy(x => x.LimiteInferior);
             ViewBag.TARSP = controllerISR.getTARSP(RFCPatron).OrderBy(x => x.LimiteInferior);
@@ -95,9 +100,9 @@ namespace NominasSAT.Controllers
                 db.Nominas.Add(nominacfdi);
                 db.SaveChanges();
                 // ya guardamos la info de la nomina en la BD ahora vamos a procesar a generar el CFDI
-
-                var comprobanteXML = generarCFDI(nominacfdi,Password,null,null);
-                nominacfdi.XML = comprobanteXML;
+                NominaTimbrada comprobanteXML = new NominaTimbrada();
+                comprobanteXML = generarCFDI(nominacfdi,Password,null,null);
+                nominacfdi.XML = comprobanteXML.xml;
                 db.Entry(nominacfdi).State = EntityState.Modified;
                 db.SaveChanges();
 
@@ -109,9 +114,10 @@ namespace NominasSAT.Controllers
 
 
         // GET: /NominaCFDI/Create
-        public ActionResult CreateNomina()
+        [HttpGet]
+        public ActionResult CreateNomina(int? id)
         {
-
+            
             IMSSController controllerIMSS = new IMSSController();
             ISRController controllerISR = new ISRController();
 
@@ -126,9 +132,77 @@ namespace NominasSAT.Controllers
             // obtenemos las incapacidades
             List<TipoIncapacidad> incapacidadesFiltradas = db.TipoIncapacidads.ToList();
 
-            // datos que mandamos por el ViewBag
+            // revisamos cual es el siguiente periodo
+            int siguientePeriodo = 1;
+            NominaPeriodos PeriodoNomina = new NominaPeriodos();
+            // valisamos si es que tenemos que recuperar informaciión de un periodo anterior
+            bool nuevoPeriodo = true;
+            // creamos la variable de los empleados seleccionados porque no sabemos si nos lo vamos a traer todos o nomas los de la nomina en cuestin
+            List<NominaCFDI> nominasTimradas = new List<NominaCFDI>();
+            List<Empleado> empleadosSeleccionados = new List<Empleado>();
+            if (id != null) {
 
-            ViewBag.empleados = db.Empleadoes.Where(x => x.RFCPatron == RFCPatron).ToList();
+
+                // aqui es de que tenemos que jalar la información del periodo especificado
+                int periodoEntero = id ?? default(int);
+                // validamos si el periodo existe:
+                if (db.NominaPeriodos.Count(x => x.RFCPatron == RFCPatron && x.NominaPeriodoId ==periodoEntero)>0)
+                {
+                    // aqui tenemos los empleados que participaron solo en este periodo
+
+                    List<NominaCFDI> empleadosTimbrados = db.Nominas.Where(x => x.NominaPeriodo == periodoEntero).ToList();
+                    List<int> empleadosID = new List<int>();
+                    foreach (NominaCFDI empleadotimbrado in empleadosTimbrados) // Loop through List with foreach
+                    {
+                        empleadosID.Add(empleadotimbrado.User);
+                    }
+                    int[] empleadosIDArray = empleadosID.ToArray();
+                    empleadosSeleccionados = db.Empleadoes.Where(x => x.RFCPatron == RFCPatron && empleadosIDArray.Contains(x.Codigo)).ToList();
+                    nuevoPeriodo = false;
+                    // ahora nos traemos el perido
+
+                    PeriodoNomina = db.NominaPeriodos.FirstOrDefault(x => x.NominaPeriodoId == periodoEntero);
+                    // ahora nos traemos las nominas
+
+                    nominasTimradas = db.Nominas.Where(x => x.NominaPeriodo == periodoEntero).ToList();
+                }
+
+
+            }
+
+            if (nuevoPeriodo)
+            {
+
+                empleadosSeleccionados = db.Empleadoes.Where(x => x.RFCPatron == RFCPatron).ToList();
+                PeriodoNomina.TipoPeriodo = 1;
+                PeriodoNomina.Status = NominaPeriodos.StatusPeriodo.sinTimbrar;
+
+                if (db.NominaPeriodos.Count(x => x.RFCPatron == RFCPatron) >= 1)
+                {
+                    // aqui es de que tenemos mas de un periodo creado
+                    // ahora vemos si tenemos el ultimo periodo abierto
+                    List<NominaPeriodos> periodosNominas = db.NominaPeriodos.Where(x => x.RFCPatron == RFCPatron).ToList();
+                    PeriodoNomina = periodosNominas.Last();
+                    if (PeriodoNomina.Status == NominaPeriodos.StatusPeriodo.timbrado)
+                    {
+                        siguientePeriodo = periodosNominas.Last().NumeroPeriodo + 1;
+                        PeriodoNomina = new NominaPeriodos();
+                    }
+                    else
+                    {
+                        siguientePeriodo = PeriodoNomina.NumeroPeriodo;
+                    }
+                }
+
+            }
+           
+            // datos que mandamos por el ViewBag
+            ViewBag.SiguientePeriodo = siguientePeriodo;
+            ViewBag.PeriodoNomina = PeriodoNomina;
+            ViewBag.FormasdePago = db.FormadePagoes.OrderBy(x => x.Indice).ToList();
+            ViewBag.FormasdePago = db.FormadePagoes.OrderBy(x => x.Indice).ToList();
+            ViewBag.TipoPeriodos = db.TipoPeriodoes.OrderBy(x => x.Indice).ToList();
+            ViewBag.empleados = empleadosSeleccionados;
             ViewBag.Incapacidades = incapacidadesFiltradas.Select(r => new SelectListItem { Text = r.Descripcion, Value = r.Clave.ToString() }).ToList();
             ViewBag.TARMP = controllerISR.getTARMP(RFCPatron).OrderBy(x => x.LimiteInferior);
             ViewBag.TARSP = controllerISR.getTARSP(RFCPatron).OrderBy(x => x.LimiteInferior);
@@ -136,8 +210,32 @@ namespace NominasSAT.Controllers
             ViewBag.TablaTs = db.TablaTs.Where(x => x.Periodo == Periodo).ToList();
             ViewBag.TOPESC = controllerIMSS.getTopesdeVecesdeSalarioXSalarioMinimo(RFCPatron);
             ViewBag.empleadosFiltrados = empleadosFiltrados.Select(r => new SelectListItem { Text = r.Nombre, Value = r.Codigo.ToString() }).ToList();
-
+            ViewBag.nominasTimradas = nominasTimradas;
             return View();
+        }
+
+
+        public ActionResult NuevaNomina(int NumeroPeriodo)
+        {
+            var RFCPatron = db.Users.FirstOrDefault(y => y.UserName == User.Identity.Name).RFC; // referenncia del RFC del usuario logueado
+            NominaPeriodos PeriodoActual = new NominaPeriodos(); ;
+            bool response = true;
+
+            if (db.NominaPeriodos.Where(x => x.RFCPatron == RFCPatron && x.NumeroPeriodo == NumeroPeriodo && x.Status == NominaPeriodos.StatusPeriodo.sinTimbrar).Count() > 0)
+            {
+                // aqui es de que ya existe este periodo y vamos a trabajar sobre el mismo
+                List<NominaPeriodos> NominasPeriodos = new List<NominaPeriodos>();
+                NominasPeriodos = db.NominaPeriodos.Where(x => x.RFCPatron == RFCPatron && x.NumeroPeriodo == NumeroPeriodo).ToList();
+                PeriodoActual = NominasPeriodos.Last();
+                PeriodoActual.Status = NominaPeriodos.StatusPeriodo.timbrado;
+                db.Entry(PeriodoActual).State = EntityState.Modified;
+                db.SaveChanges();
+                response = false;
+            }
+
+            ViewBag.response = response;
+            return View();
+           
         }
 
         // POST: /NominaCFDI/Create
@@ -154,9 +252,10 @@ namespace NominasSAT.Controllers
                 db.Nominas.Add(nominacfdi);
                 db.SaveChanges();
                 // ya guardamos la info de la nomina en la BD ahora vamos a procesar a generar el CFDI
+                NominaTimbrada comprobanteXML = new NominaTimbrada();
+                comprobanteXML = generarCFDI(nominacfdi, Password,null,null);
 
-                var comprobanteXML = generarCFDI(nominacfdi, Password,null,null);
-                nominacfdi.XML = comprobanteXML;
+                nominacfdi.XML = comprobanteXML.xml;
                 db.Entry(nominacfdi).State = EntityState.Modified;
                 db.SaveChanges();
 
@@ -169,18 +268,51 @@ namespace NominasSAT.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateMasivo(string nominaCompleta)
+        public ActionResult CreateMasivo(string nominaCompleta, string NumeroPeriodo, string FechaInicioPeriodo, string FechaFinPeriodo, string TipoPeriodo, string FechaDePago, string FormaDePago)
         {
             // aqui procesamos esta información en el objeto nominacfdi para meterlo a la BD, despues creamos el CFDI
 
-            
+           
+
+          
+
+
                 JavaScriptSerializer js = new JavaScriptSerializer();
                 NominaCFDI[] nominas = js.Deserialize<NominaCFDI[]>(nominaCompleta);
+                Dictionary<string, string> errores = new Dictionary<string, string>();
+
                 // obtenemos los datos del emisor
                 var RFCPatron = db.Users.FirstOrDefault(y => y.UserName == User.Identity.Name).RFC; // referenncia del RFC del usuario logueado
                 var empresa = db.Empresas.FirstOrDefault(x => x.RFC == RFCPatron);
+                NominaPeriodos PeriodoActual = new NominaPeriodos();
+                // obtenemos la información del periodo y la validamos
+                int periodoEntero = int.Parse(NumeroPeriodo);
+                bool PeriodoModificado = false;
+                if (db.NominaPeriodos.Where(x => x.RFCPatron == RFCPatron && x.NumeroPeriodo == periodoEntero).Count() > 0)
+                {
+                    // aqui es de que ya existe este periodo y vamos a trabajar sobre el mismo
+                    List<NominaPeriodos> NominasPeriodos = new List<NominaPeriodos>();
+                    NominasPeriodos = db.NominaPeriodos.Where(x => x.RFCPatron == RFCPatron && x.NumeroPeriodo == periodoEntero).ToList();
+                    PeriodoActual = NominasPeriodos.Last();
+                    PeriodoModificado = true;
+                }
+                else
+                {
+                    // aqui es cuando trabajamos con un periodo nuevo
+                    PeriodoActual.NumeroPeriodo = int.Parse(NumeroPeriodo);
+                    PeriodoActual.RFCPatron = RFCPatron;
+                    PeriodoActual.Empresa = empresa.EmpresaId;
+                    PeriodoActual.FechaInicioPeriodo = FechaInicioPeriodo;
+                    PeriodoActual.FechaFinPeriodo = FechaFinPeriodo;
+                    PeriodoActual.TipoPeriodo = int.Parse(TipoPeriodo);
+                    PeriodoActual.FechaDePago = FechaDePago;
+                    PeriodoActual.FormaDePago = int.Parse(FormaDePago);
+                    PeriodoActual.Status = NominaPeriodos.StatusPeriodo.sinTimbrar;
 
-                
+                }
+
+               
+                List<NominaTimbrada> empleadosTimbrados = new List<NominaTimbrada>();
 
                 Task<NominaCFDI>[] tasks = new Task<NominaCFDI>[nominas.Length];
                   for(int i=0;i<nominas.Length;i++)
@@ -188,19 +320,33 @@ namespace NominasSAT.Controllers
                    
                     int empleadoID = nominas[i].User;
                     Empleado empleado = db.Empleadoes.FirstOrDefault(x => x.Codigo == empleadoID);
-                    nominas[i].CURP = empleado.CURP;
-                    nominas[i].FechaInicioLaboral = empleado.FechaInicioLaboral.ToString();
-                    nominas[i].NumSeguroSocial = empleado.NumSeguroSocial;
-                    nominas[i].RFC = empleado.RFC;
 
                       // validaciones necesrias para el esquema
 
                     NominaCFDI nominaActual = nominas[i];
+                    nominaActual.CURP = empleado.CURP;
+                    nominaActual.FechaInicioLaboral = empleado.FechaInicioLaboral.ToString();
+                    nominaActual.NumSeguroSocial = empleado.NumSeguroSocial;
+                    nominaActual.RFC = empleado.RFC;
+                    nominaActual.NominaPeriodo = PeriodoActual.NumeroPeriodo;
+
                     //tasks[i] = Task<NominaCFDI>.Factory.StartNew(() =>
                     //{
+                    NominaTimbrada comprobanteXML = new NominaTimbrada();
+                    try { 
+                     // in  var comprobanteXML tentamos cachar la nomina
+                        comprobanteXML = generarCFDI(nominaActual, "12345678a", empresa, empleado);
 
-                        var comprobanteXML = generarCFDI(nominaActual, "12345678a", empresa, empleado);
-                        nominaActual.XML = comprobanteXML;
+                        empleadosTimbrados.Add(new NominaTimbrada { Empleado = empleadoID, uuid = comprobanteXML.uuid });
+                     
+                      nominaActual.XML = comprobanteXML.xml;
+
+                    }
+                    catch (Exception e)
+                    {
+                        errores.Add(empleado.Nombre, e.Message.ToString());
+
+                    }
                         db.Nominas.Add(nominaActual);
                         db.SaveChanges();
                     //    return nominaActual;
@@ -210,33 +356,27 @@ namespace NominasSAT.Controllers
                   
 
                 }
+                Dictionary<string,string> respuesta = new Dictionary<string,string>();
 
-
-
-                //try
-                //{
-                //    // Wait for all the tasks to finish.
-                //    Task.WaitAll(tasks);
-
-
-                //}
-                //catch (AggregateException e)
-                //{
-                //    new Exception("Error");
-                //}
-
-                //db.Nominas.Add(nominacfdi);
-                //db.SaveChanges();
-                //// ya guardamos la info de la nomina en la BD ahora vamos a procesar a generar el CFDI
-
-                //var comprobanteXML = generarCFDI(nominacfdi, Password);
-                //nominacfdi.XML = comprobanteXML;
-                //db.Entry(nominacfdi).State = EntityState.Modified;
-                //db.SaveChanges();
-
-                //return RedirectToAction("Index");
-
-                ViewBag.Nominas = JsonConvert.SerializeObject(nominas);
+            // validamos si hay errores para cerrar la nomina o dejarla abierta
+                if (errores.Count==0)
+                {
+                    PeriodoActual.Status = NominaPeriodos.StatusPeriodo.timbrado;
+                  
+                }
+                if (PeriodoModificado) {
+                    db.Entry(PeriodoActual).State = EntityState.Modified;
+                }
+                else
+                {
+                    db.NominaPeriodos.Add(PeriodoActual);
+                   
+                }
+                db.SaveChanges();
+                respuesta.Add("Timbres",JsonConvert.SerializeObject(empleadosTimbrados));
+                respuesta.Add("Errores",JsonConvert.SerializeObject(errores));
+                ViewBag.response = JsonConvert.SerializeObject(respuesta);
+              
             return View();
         }
 
@@ -299,7 +439,7 @@ namespace NominasSAT.Controllers
         }
 
         // generamos el CFDI
-        public string generarCFDI(NominaCFDI nominacfdi, string Password, Empresa empresa, Empleado empleado)
+        public NominaTimbrada generarCFDI(NominaCFDI nominacfdi, string Password, Empresa empresa, Empleado empleado)
         {
             
          
@@ -538,8 +678,11 @@ namespace NominasSAT.Controllers
             nominaXMLElement.Add(elementoTimbre);
             CFDI.Complemento.Any = nominaXMLElement.ToArray();
 
+            NominaTimbrada respuesta = new NominaTimbrada();
+            respuesta.xml = Serializer.SerializeComprobante(CFDI);
+            respuesta.uuid = timbreFiscalTemp.UUID.ToString();
 
-            return Serializer.SerializeComprobante(CFDI);
+            return respuesta;
 
         }
 

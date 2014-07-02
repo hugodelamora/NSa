@@ -4,9 +4,7 @@ namespace NominasSAT.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
-    {
-        
-        
+    {   
         public string Nombres { get; set; }
         public string Apellidos { get; set; }
         public string Email { get; set; }
@@ -33,6 +31,9 @@ namespace NominasSAT.Models
         public string CertificadoKey { get; set; }
         public string CertificadoContasena { get; set; }
         public byte[] PFX { get; set; }
+
+        //Flag for wizard
+        public bool CompletedWizard { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -91,5 +92,15 @@ namespace NominasSAT.Models
         public System.Data.Entity.DbSet<NominasSAT.Models.TopesdeVecesdeSalarioXRamo> TopesdeVecesdeSalarioXRamoes { get; set; }
 
         public System.Data.Entity.DbSet<NominasSAT.Models.Periodo> Periodoes { get; set; }
+
+        public System.Data.Entity.DbSet<NominasSAT.Models.NominaPeriodos> NominaPeriodos { get; set; }
+
+        public System.Data.Entity.DbSet<NominasSAT.Models.FormadePago> FormadePagoes { get; set; }
+
+        public System.Data.Entity.DbSet<NominasSAT.Models.TipoPeriodo> TipoPeriodoes { get; set; }
+
+        public System.Data.Entity.DbSet<NominasSAT.Models.Licencia> Licencias { get; set; }
+
+        public System.Data.Entity.DbSet<NominasSAT.Models.AsistenteConfiguracion> AsistenteConfiguracions { get; set; }
     }
 }

@@ -71,11 +71,11 @@ namespace NominasSAT.Models
         [Compare("NewPassword", ErrorMessage = "La nueva contraseña y la contraseña de confirmación no coinciden.")]
         public string ConfirmPassword { get; set; }
     }
-
+     
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Nombre de usuario")]
+        [Display(Name = "RFC")]
         public string UserName { get; set; }
 
         [Required]
@@ -87,9 +87,35 @@ namespace NominasSAT.Models
         public bool RememberMe { get; set; }
     }
 
-    public class RegisterViewModel
+    public class LoginCSDViewModel
     {
         [Required]
+        [Display(Name = "RFC")]
+        public string UserName { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Contraseña de sello digital")]
+        public string CertificadoContrasena { get; set; }
+
+        [DataType(DataType.Upload)]
+        [Display(Name = "Certificado de sello digital .cer")]
+        public string CertificadoCer { get; set; }
+
+        [DataType(DataType.Upload)]
+        [Display(Name = "Llave de sello digital .key")]
+        public string CertificadoKey { get; set; }
+    }
+
+    public class RecoveryViewModel
+    {
+        [Required]
+        [Display(Name = "RFC")]
+        public string UserName { get; set; }
+    }
+
+    public class RegisterViewModel
+    {
         [Display(Name = "Nombre de usuario")]
         public string UserName { get; set; }
 
@@ -103,70 +129,22 @@ namespace NominasSAT.Models
 
         [Required]
         [Display(Name = "Email")]
+        [DataType(DataType.EmailAddress)]
+        [EmailAddress(ErrorMessage = "Email inválido")]
         public string Email { get; set; }
 
         [Required]
-        [Display(Name = "Nombre o Razón Social")]
-        public string NombreRazonSocial { get; set; }
+        [Display(Name = "Confirmar email")]
+        [DataType(DataType.EmailAddress)]
+        [EmailAddress(ErrorMessage = "Email inválido")]
+        [Compare("Email", ErrorMessage = "Los campos de correo electrónico no coinciden")]
+        public string ConfirmEmail { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "El número de caracteres de {0} debe ser al menos {2}.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "Contraseña")]
-        public string Password { get; set; }
-
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirmar contraseña")]
-        [Compare("Password", ErrorMessage = "La contraseña y la contraseña de confirmación no coinciden.")]
-        public string ConfirmPassword { get; set; }
-
-        [Required]
+        [StringLength(13)]
         [Display(Name = "RFC")]
+        [RegularExpression("^([a-zñA-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[a-zA-Z|\\d]{3})$", ErrorMessage = "RFC inválido")]
         public string RFC { get; set; }
-
-        [Required]
-        [Display(Name = "Regimen laboral")]
-        public string Regimen { get; set; }
-
-        [Required]
-        [Display(Name = "Registro patronal")]
-        public string RegistroPatronal { get; set; }
-
-        [Required]
-        [Display(Name = "Clase de riesgo de trabajo")]
-        public string ClaseRiesgoTrabajo { get; set; }
-
-        [Required]
-        [Display(Name = "Lugar de Expedición")]
-        public string LugarExpedicion { get; set; }
-
-        // domicilio
-        [Required]
-        [Display(Name = "Calle")]
-        public string Calle { get; set; }
-        [Required]
-        [Display(Name = "Numero exterior")]
-        public string NumeroExterior { get; set; }
-        [Required]
-        [Display(Name = "Numero interior")]
-        public string NumeroInterior { get; set; }
-        [Required]
-        [Display(Name = "Colonia")]
-        public string Colonia { get; set; }
-        [Required]
-        [DataType(DataType.PostalCode)]
-        [Display(Name = "Código Postal")]
-        public string CP { get; set; }
-        [Required]
-        [Display(Name = "Ciudad")]
-        public string Ciudad { get; set; }
-        [Required]
-        [Display(Name = "Municipio")]
-        public string Municipio { get; set; }
-        [Required]
-        [Display(Name = "Estado")]
-        public string Estado { get; set; }
-
 
         // Certificados de Sello Digital (CSD) of Firma electronica Avanzada (FIEL)
 
@@ -177,11 +155,14 @@ namespace NominasSAT.Models
         [DataType(DataType.Upload)]
         [Display(Name = "Llave de sello digital .key")]
         public string CertificadoKey { get; set; }
+
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Contraseña sello digital")]
-        public string CertificadoContasena { get; set; }
+        [Display(Name = "Contraseña de sello digital")]
+        public string CertificadoContrasena { get; set; }
 
-
+        [Required]
+        [Display(Name = "Acepto el aviso de privacidad, acuerdo de servicio y licencia de uso")]
+        public bool AcceptTerms { get; set; }
     }
 }

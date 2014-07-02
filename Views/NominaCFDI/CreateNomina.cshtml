@@ -85,43 +85,131 @@
 
     //Calcula toda las nominas en automatico
     var empleadosItems = Array();
-     @foreach (var itemEmpleado in ViewBag.empleados)
+    @foreach (var itemEmpleado in ViewBag.empleados)
     {
         <text>
     var empleados = new Object();
     empleados.codigo = '@itemEmpleado.Codigo';
     empleadosItems.push(empleados);
+    </text>
+
+    }
+
+    var nominasTimradas = Array();
+    @foreach (var itemNomina in ViewBag.nominasTimradas)
+    {
+        <text>
+    var nomina = new Object();
+    nomina.SalarioDiario = '@itemNomina.SalarioDiario';
+    nomina.SBC = '@itemNomina.SBC';
+    nomina.DiasPagar = '@itemNomina.DiasPagar';
+    nomina.Incidencias = '@itemNomina.Incidencias';
+    nomina.Ausentismo = '@itemNomina.Ausentismo';
+    nomina.DiasTrabajados = '@itemNomina.DiasTrabajados';
+    nomina.HorasExtrasDobles = '@itemNomina.HorasExtrasDobles';
+    nomina.HorasExtrasTriples = '@itemNomina.HorasExtrasTriples';
+    nomina.PSueldosSalariosRayasJornales = '@itemNomina.PSueldosSalariosRayasJornales';
+    nomina.PSueldoExcento = '@itemNomina.PSueldoExcento';
+    nomina.PSueldoGravado = '@itemNomina.PSueldoGravado';
+    nomina.PHorasExtrasDobles = '@itemNomina.PHorasExtrasDobles';
+    nomina.PHorasExtrasTriples = '@itemNomina.PHorasExtrasTriples';
+    nomina.PHorasExtras = '@itemNomina.PHorasExtras';
+    nomina.PHorasExtrasExcento = '@itemNomina.PHorasExtrasExcento';
+    nomina.PHorasExtrasGravado = '@itemNomina.PHorasExtrasGravado';
+    nomina.PComisiones = '@itemNomina.PComisiones';
+    nomina.POtros = '@itemNomina.POtros';
+    nomina.PPrimavacacional = '@itemNomina.PPrimavacacional';
+    nomina.PTotalPercepciones = '@itemNomina.PTotalPercepciones';
+    nomina.DISR = '@itemNomina.DISR';
+    nomina.DSubsidio = '@itemNomina.DSubsidio';
+    nomina.D1 = '@itemNomina.D1';
+    nomina.D2 = '@itemNomina.D2';
+    nomina.D3 = '@itemNomina.D3';
+    nomina.D4 = '@itemNomina.D4';
+    nomina.D5 = '@itemNomina.D5';
+    nomina.D6 = '@itemNomina.D6';
+    nomina.SeguridadSocial = '@itemNomina.SeguridadSocial';
+    nomina.Infonavit = '@itemNomina.Infonavit';
+    nomina.OtrasDeducciones = '@itemNomina.OtrasDeducciones';
+    nomina.TotalDeduccion = '@itemNomina.TotalDeduccion';
+    nomina.SalarioNeto = '@itemNomina.SalarioNeto';
+    nomina.TipoIncapacidad = '@itemNomina.TipoIncapacidad';
+    nomina.RFC = '@itemNomina.RFC';
+    nomina.CURP = '@itemNomina.CURP';
+    nomina.NumSeguroSocial = '@itemNomina.NumSeguroSocial';
+    nomina.FechaInicioLaboral = '@itemNomina.FechaInicioLaboral';
+    nomina.User = '@itemNomina.User'; 
+    nominasTimradas.push(nomina);
         </text>
 
     }
+
+
 
 </script>
 <h2>Create</h2>
 
 <div style="width:100%;">
-
+    <input type="button" value="Nueva nómina" class="btn btn-default" onclick="nuevaNomina()" id="NuevaNomina" />
     <table>
 
         <tbody>
             <tr>
                 <td>Número de periodo</td>
-                <td><input type="text" /></td>
+                <td><input type="text" id="numeroPeriodo" value="@ViewBag.SiguientePeriodo" onblur="recuperarNomina()" /></td>
                 <td>Tipo de periodo</td>
-                <td><input type="text" /></td>
-                <td colspan="3" style="vertical-align:middle"><input type="button" value="Timbrar la nómina" class="btn btn-default" onclick="timbraNomina()" /></td>
-                <td colspan="3" style="vertical-align:middle"><input type="button" value="Enviar recibos" class="btn btn-default" /></td>
+                <td>
+                    <select id="tipoPeriodo">
+
+
+                        @foreach (var tipoPeriodo in ViewBag.TipoPeriodos)
+                        {
+
+
+                            <option value="@tipoPeriodo.PeriodoId" @if (tipoPeriodo.PeriodoId == @ViewBag.PeriodoNomina.TipoPeriodo)
+                                                                   { <text> selected </text>}>@tipoPeriodo.Nombre</option>
+
+
+                        }
+                    </select>
+
+                  
+                   
+                
+                
+                </td>
+                <td colspan="3" style="vertical-align:middle"><input type="button" value="Timbrar la nómina" class="btn btn-default" onclick="timbraNomina()" id="TimbrarNomina" /></td>
+                <td colspan="3" style="vertical-align:middle"><input type="button" value="Enviar recibos" class="btn btn-default" id="EnviarRecibos" disabled="disabled" /></td>
             </tr>
             <tr>
                 <td>Fecha inicio de periodo</td>
-                <td><input type="text" id="fechaInicioPeriodo" /></td>
+                <td><input type="text" id="fechaInicioPeriodo" value="@ViewBag.PeriodoNomina.FechaInicioPeriodo" /></td>
                 <td>Fecha de pago</td>
-                <td><input type="text" id="fechaDePago" /></td>
+                <td><input type="text" id="fechaDePago" value="@ViewBag.PeriodoNomina.FechaDePago" /></td>
             </tr>
             <tr>
                 <td>Fecha fin de periodo</td>
-                <td><input type="text" id="fechaFinPeriodo" /></td>
+                <td><input type="text" id="fechaFinPeriodo" value="@ViewBag.PeriodoNomina.FechaFinPeriodo" /></td>
                 <td>Forma de pago</td>
-                <td><input type="text" /></td>
+                <td>
+                    <select id="formaDePago" >
+
+
+                        @foreach (var formaPago in ViewBag.FormasdePago)
+{
+
+
+    <option value="@formaPago.PagoId" @if (formaPago.PagoId == @ViewBag.PeriodoNomina.FormaDePago)
+                                      { <text> selected </text> }>@formaPago.Nombre</option>
+
+
+}
+                    </select>
+
+
+                    
+
+                </td>
             </tr>
            
 
@@ -172,7 +260,14 @@
                 <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.PTotalPercepciones)</th>
                 <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.TotalDeduccion)</th>
                 <th data-filterable="true" data-sortable="true">@Html.LabelFor(model => model.SalarioNeto)</th>
+                @*columnas extras de acciones y estatus*@
+                <th data-filterable="true" data-sortable="true">Status</th>
+                <th data-filterable="true" data-sortable="true">PDF</th>
+                <th data-filterable="true" data-sortable="true">XML</th>
+                <th data-filterable="true" data-sortable="true">Correo electrónico</th>
 
+
+                @*columnas ocultas de control*@
                 <th data-filterable="true" data-sortable="true" hidden="hidden">@Html.LabelFor(model => model.D1)</th>
                 <th data-filterable="true" data-sortable="true" hidden="hidden">@Html.LabelFor(model => model.D2)</th>
                 <th data-filterable="true" data-sortable="true" hidden="hidden">@Html.LabelFor(model => model.D3)</th>
@@ -260,6 +355,14 @@
         <td id="valTotalDeduccion"></td>
         <td id="valSalarioNeto"></td>
 
+
+        @*columnas extras de acciones y estatus*@
+        <td id="valStatus"></td>
+        <td id="valPDF"></td>
+        <td id="valXML"></td>
+        <td id="valemail">@item.Email</td>
+
+
         <td hidden="hidden" id="valD1"></td>
         <td hidden="hidden" id="valD2"></td>
         <td hidden="hidden" id="valD3"></td>
@@ -295,7 +398,33 @@
 <div>
     @Html.ActionLink("Crear empleado", "Create", "Empleado", routeValues: null, htmlAttributes: new { id = "registerLink"})
 </div>
+<div id="modalLoading" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="position:absolute; right:0px">
+        <div class="modal-content">
 
+            <div class="modal-body">
+
+                <div class="alert alert-info">
+                    <div class="stat-header">
+
+                        <div class="stat-label">
+                            Timbrando nomina
+                        </div> <!-- /.stat-label -->
+                    </div>
+                    <div class="progress progress-striped active">
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                            <span class="sr-only">100%</span>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/common")
+@Scripts.Render("~/bundles/nomina")
 }
